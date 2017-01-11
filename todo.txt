@@ -1,0 +1,12 @@
+W1/11: 
+R1/12: 
+F1/13: finish MVP, with one person with one stop (start town), food, money, basic inventory, time, pausing
+S1/14: 
+S1/15: add random events/weather + decide on item system
+M1/16: expand map + chooseable start/end points + rivers
+T1/17: add map for player to see + maybe art
+W1/18: catch all exceptions
+R1/19: 
+F1/20: add hunting minigame
+S1/21: debugging/extra stuff
+S1/22: debugging/extra stuff
