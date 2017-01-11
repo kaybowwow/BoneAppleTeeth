@@ -1,10 +1,11 @@
-public class Banker {
+public class Banker implements Player {
 
     public Banker(String inputName) { //Initializing variables:
-	money = 1000;
-	health = 100;
-	name = inputName;
+	super (1000, 100, inputName);
     }
+
+}
+
 
 
     

@@ -1,7 +1,5 @@
-public class Carpenter {
+public class Carpenter implements Player {
     public Carpenter(String inputName) {
-	money = 500;
-	health = 100;
-	name = inputName;
+	super (500, 100, inputName); 
     }
 }
