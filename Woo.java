@@ -1,5 +1,6 @@
 public class Woo{
     private Player pat;
+    private Member p1;
 
     public Woo() {
 	newGame();
@@ -23,6 +24,11 @@ public class Woo{
 	System.out.println(pat.changeRation(10));
 	System.out.println(pat.changePace(3));
 	
+	p1 = new Member("g dragon");
+	System.out.println(p1.health);
+	System.out.println(p1.name);
+	System.out.println(p1.getHealth());
+	System.out.println(p1.getName());
     }
     public static void main (String[] args){
 	System.out.println("cool and good");
