@@ -4,7 +4,7 @@ public class Player extends Character{
     int pace;//1-slow , 2-average , 3-fast
     int ration;
 
-    public Player(String InputName , double setMoney ) {
+    public Player(int String InputName , double setMoney ) {
 	super(100);
 	pace = 2;
 	ration = 5;
@@ -12,10 +12,7 @@ public class Player extends Character{
 	name = InputName;
 	ArrayList <Comparable> inventory = new ArrayList <Comparable>();
 	//temporary 
-	inventory.add("Oxen");
-	inventory.add("Sushi");
-	inventory.add("Oxen");
-	inventory.add("Orange Juice");
+	
 	System.out.println(inventory);
 	
     }

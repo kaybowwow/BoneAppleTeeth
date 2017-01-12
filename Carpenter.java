@@ -1,5 +1,5 @@
-public class Carpenter implements Player {
+public class Carpenter extends Player {
     public Carpenter(String inputName) {
-	super (500, 100, inputName); 
+	super (inputName, 500); 
     }
 }

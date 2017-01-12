@@ -1,6 +1,6 @@
-public class Farmer implements Player {
+public class Farmer extends Player {
     public Farmer(String inputName) {
-	super(200, 100, inputName);
+	super(inputName, 200);
     }
 }
 
