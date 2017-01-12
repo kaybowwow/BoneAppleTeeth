@@ -1,10 +1,11 @@
 public class Character{
 
-    int health;
-    //If no food: health decreases
-
+    int health; //If no food: health decreases
     String name;
 
+    public Character(int setHealth) {
+	health = setHealth;
+    }
     public String getName() {
 	return name;
     }
@@ -15,7 +16,5 @@ public class Character{
 
     public boolean isAlive() {
 	return (health > 0);
-    }
-    
-    
+    } 
 }

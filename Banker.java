@@ -1,7 +1,7 @@
-public class Banker implements Player {
+public class Banker extends Player {
 
     public Banker(String inputName) { //Initializing variables:
-	super (1000, 100, inputName);
+	super (inputName , 1000);
     }
 
 }
