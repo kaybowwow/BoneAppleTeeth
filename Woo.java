@@ -2,12 +2,21 @@ import cs1.Keyboard;
 import java.util.ArrayList;
 
 public class Woo{
+
+    public final static int maxMiles = 100;
     
     private Player pat;
     private Member p1;
     ArrayList<String> inventory = new ArrayList<String>();
+
+    private int daysTraveled;
+    private int milesTraveled;
+    private int month;
+    private boolean gameOver;
     
     public Woo() {
+	daysTraveled = 0;
+	gameOver = false;
 	newGame();
     }
     
@@ -69,7 +78,7 @@ public class Woo{
 	    System.out.println("Unexpected input received. Default settings are used: you are a farmer."); 
 	}
 
-	//printing initial stats:
+	//printing initial stats; this would be in a new method called about():
 	System.out.println("Name: " + pat.name);
 	System.out.println("Health: " + pat.health);
 	System.out.println("Money: " + pat.money);
@@ -180,10 +189,49 @@ public class Woo{
 
     public void addItem (String item) {
 	inventory.add(item);
+    }					
+
+    public boolean haveItem (String item) {
+        for (int x = 0 ; x < inventory.size() ; x += 1) {
+	    if (inventory.get(x) == item) {
+		return true;
+	    }
+	}
+	return false;
     }
+    
+    public boolean playTurn() {
+	int selection = 1;
+	System.out.println("\nWhat do you want to do?");
+	System.out.println("\t1: Continue\n\t2: Rest");
+	selection = Keyboard.readInt();
+
+	if (selection == 1) {
+	    System.out.println(milesTraveled);
+	    milesTraveled += pat.pace * 10;
+	    
+	}
+
+	if (selection == 2) {
+	    System.out.println("RESTTTTTT");
+	}
+        return true;
+    }
+	
 
     
     public static void main (String[] args){
 	Woo game = new Woo();
+
+	milesTraveled = 0;
+
+	while (milesTraveled < maxMiles) {
+	    poo = milesTraveled;
+	    if (!game.playTurn())
+		break;
+	    System.out.println();
+	}
+
+	System.out.println("Your game is over.");
     }
 }
