@@ -37,6 +37,52 @@ Created and modified the Woo file
 
 Researched on certain functionalities that will be included in the game 
 
+2017-01-12
+-------------------------------------------------------------
+Queenie ::
+Modified the Woo file and Player and its subclasses
+Modifications include:
+1. Implementing an initial inventory where each subclass of Player recieves a different starting item depending on their occupation.
+2. Creating and implementing a Shop mechanism at the start of the game.
+3. Implementing the cs1 package's Keyboard class to accept user input like name.
+
+Kevin ::
+Modified Character and all of its subclasses, and Woo
+1. Implemented constructors for each class utilizing super().
+2. Added basic methods to necessary classes.
+3. Modified Woo to accept user inputs to continue or rest.
+
+Andrew ::
+Modified Character and Woo
+1. Implemented a 20-item long array of Strings as the inventory for Character
+2. Modified the Shop mechanism
+3. Created and implemented a rest() method
+4. Modified Woo to end the game when the user's milesTraveled equals to the maxMiles.
+
+2017-01-13
+--------------------------------------------------------------
+Queenie ::
+Kevin ::
+Andrew ::
+
+2017-01-14
+--------------------------------------------------------------
+Queenie ::
+Kevin ::
+Andrew ::
+
+2017-01-15
+--------------------------------------------------------------
+Queenie ::
+Kevin ::
+Andrew ::
+
+2017-01-16
+--------------------------------------------------------------
+Queenie ::
+Kevin ::
+Andrew ::
+
 
 ==============================================================
 
