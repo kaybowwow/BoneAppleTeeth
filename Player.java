@@ -3,17 +3,19 @@ public class Player extends Character{
     double money;
     int pace;//1-slow , 2-average , 3-fast
     int ration;
-
-    public Player(int String InputName , double setMoney ) {
+    ArrayList<String> inventory;
+    
+    public Player(String InputName , double setMoney, String initalInv ) {
 	super(100);
 	pace = 2;
 	ration = 5;
 	money = setMoney;
 	name = InputName;
-	ArrayList <Comparable> inventory = new ArrayList <Comparable>();
-	//temporary 
-	
-	System.out.println(inventory);
+	ArrayList <String> inventory = new ArrayList <String>();
+	inventory.add(initalInv);
+	System.out.println("\n" + "Here are your initial stats: " + "\n" +
+			   "Intial inventory: " +
+			   inventory);
 	
     }
 

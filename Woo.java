@@ -1,4 +1,5 @@
-import cs1.Keyboard; 
+import cs1.Keyboard;
+import java.util.ArrayList;
 
 public class Woo{
     
@@ -21,9 +22,13 @@ public class Woo{
 	    name = Keyboard.readWord();
 	}
 
-        catch ( Exception e ) {}
+        catch ( Exception e ) {
+	    name = "Bob";
+	    System.out.println("Unexpected input received. Default settings are used: your name is Bob."); 
+	    
+	}
 
-	s = "\n What was your occupation before you moved? \n";
+	s = "\n What is your occupation? \n";
 
 	s += "\t1: Farmer\n";
 
@@ -40,54 +45,135 @@ public class Woo{
 	    selection = Keyboard.readInt();
 	    if (selection == 1) {
 		pat = new Farmer(name);
+		
 	    }
 
 	    if (selection == 2) {
 		pat = new Carpenter(name);
+	
 	    }
 
 	    if (selection == 3) {
 		pat = new Banker(name);
+		
 	    }
 
 	    if (selection == 4) {
 		pat = new Immigrant(name);
+	    }   
+	}
+
+	catch (Exception e) {
+	    pat = new Farmer(name);
+	    System.out.println("Unexpected input received. Default settings are used: you are a farmer."); 
+	}
+
+	//printing initial stats:
+	System.out.println("Name: " + pat.name);
+	System.out.println("Health: " + pat.health);
+	System.out.println("Money: " + pat.money);
+
+	System.out.println("\n Before you head on the road, would you like to buy anything?");
+
+	System.out.println("\n"+ "\t1: Yes" + "\t2: No");
+
+	try {
+	    selection = Keyboard.readInt();
+
+	    if (selection == 1) {
+		shop();
 	    }
 
-	    //System.out.println("\n" + pat.about(pat) + "\n"); 
+	    // NOTE: it should be something like this:
+	    /* else {
+	       playTurn() }
+	    */
+
+	    System.out.println(pat.inventory);
+	    System.out.println(pat.money); 
 	}
 
 	catch (Exception e) {}
+
 	
 
-	/*
-	pat = new Banker("JohnCena");
-	System.out.println(pat.health);
-	System.out.println(pat.name);
-	System.out.println(pat.money);
-	System.out.println(pat.pace);
-	System.out.println(pat.ration);
-
-	//testing methods of class Character
-	System.out.println("\n\n" + pat.getName());
-	System.out.println(pat.getHealth());
-	System.out.println(pat.isAlive());
-
-	//testing methods of class Player
-	System.out.println(pat.getMoney());
-	System.out.println(pat.changeRation(10));
-	System.out.println(pat.changePace(3));
-	
-<<<<<<< HEAD
-	*/ 
-=======
-	p1 = new Member("g dragon");
-	System.out.println(p1.health);
-	System.out.println(p1.name);
-	System.out.println(p1.getHealth());
-	System.out.println(p1.getName());
->>>>>>> 518ca1b0551b7ad7a6a7ba4c9a0fc68f8a471e28
     }
+
+    public ArrayList<String> shop() {
+	int minusMoney = 0;
+	int selection;
+	int selection2 = 0;
+	String item = ""; 
+	
+	System.out.println("Welcome to the shop! Here is your current amount of available cash: " +
+			   pat.money +
+			   "\nWhat would you like to buy?");
+	System.out.println("\n 1. oxen: $20 each" +
+			   "\n 2. medicine (Cures all): $10 each" +
+			   "\n 3. food : $7 each" +
+			   "\n 4. heavy jacket: $15 each"
+			   );
+	System.out.println("\n Selection: ");
+
+	//try {
+	    selection = Keyboard.readInt();
+	    
+	    if (selection == 1) {
+		item = "oxen"; 
+		System.out.println("How many?");
+		System.out.println("Number: ");
+		selection2 = Keyboard.readInt();
+		minusMoney = 20 * selection2;
+	    }
+
+	    if (selection == 2) {
+		item = "medicine"; 
+		System.out.println("How many?");
+		System.out.println("Number: ");
+		selection2 = Keyboard.readInt();
+		minusMoney = 10 * selection2;
+	    }
+
+	    if (selection == 3) {
+		item = "food"; 
+		System.out.println("How many?");
+		System.out.println("Number: ");
+		selection2 = Keyboard.readInt();
+		minusMoney = 7 * selection2; 
+	    }
+	    
+	    if (selection == 4) {
+		item = "heavy jacket"; 
+		System.out.println("How many?");
+		System.out.println("Number: ");
+		selection2 = Keyboard.readInt();
+		minusMoney = 15 * selection2; 
+	    }
+
+	    //Subtracting money 
+	    pat.money -= minusMoney;
+	    
+	    //Adding item(s) to inventory:
+	    for (int i = selection2; i > 0; i--) {
+		pat.inventory.add(item);
+	    }
+
+	    //}
+
+	    //	catch (Exception e) {}
+	
+	
+
+	
+	return pat.inventory;
+    }
+
+    
+	    
+    
+       
+
+    
     public static void main (String[] args){
 	Woo game = new Woo();
     }
