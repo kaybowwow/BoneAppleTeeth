@@ -10,14 +10,14 @@ public class Woo{
     ArrayList<String> inventory = new ArrayList<String>();
 
     private int daysTraveled;
-    private int milesTraveled;
+    private static int milesTraveled;
     private int month;
     private boolean gameOver;
     
     public Woo() {
-	daysTraveled = 0;
-	gameOver = false;
-	newGame();
+		daysTraveled = 0;
+		gameOver = false;
+		newGame();
     }
     
     public void newGame() {
@@ -82,7 +82,7 @@ public class Woo{
 	System.out.println("Name: " + pat.name);
 	System.out.println("Health: " + pat.health);
 	System.out.println("Money: " + pat.money);
-
+	
 	System.out.println("\n Before you head on the road, would you like to buy anything?");
 
 	System.out.println("\n"+ "\t1: Yes" + "\t2: No");
@@ -163,13 +163,17 @@ public class Woo{
 		minusMoney = 15 * selection2; 
 	    }
 
-	    //Subtracting money 
-	    pat.money -= minusMoney;
-
-	    //adding to inventory: 
-	    for (int i = selection2; i > 0; i--) {
-		addItem(item);
-	    }
+		if (minusMoney > pat.money){
+			System.out.println("You can't afford that.");
+		}
+		else{
+			//subtracting money
+			pat.money -= minusMoney;
+			//adding to inventory: 
+			for (int i = selection2; i > 0; i--) {
+			addItem(item);
+			}
+		}
 	    System.out.println("Continue shopping? Type 'yes' or 'no'");
 
 	    continueShopping = Keyboard.readString();
@@ -207,18 +211,41 @@ public class Woo{
 	selection = Keyboard.readInt();
 
 	if (selection == 1) {
-	    System.out.println(milesTraveled);
-	    milesTraveled += pat.pace * 10;
-	    
+		milesTraveled += pat.pace * 10;
+	    System.out.println("Miles Traveled: " + milesTraveled);
 	}
 
 	if (selection == 2) {
-	    System.out.println("RESTTTTTT");
+	    rest();
 	}
         return true;
     }
 	
-
+	public boolean rest(){
+		System.out.println("\t1: Continue\n\t2: Check Location\n\t3: Check Inventory");
+		int selection = Keyboard.readInt();
+		
+		if (selection == 1){
+			System.out.println("Back to the trail!");
+		}
+		else if (selection == 2){
+			if (milesTraveled <= 20){
+				System.out.println("You're near the start.");
+			}
+			else if (milesTraveled >= 80){
+				System.out.println("You're near the end.");
+			}
+			else{
+				System.out.println("You're in the middle of nowhere.");
+			}
+			rest();
+		}
+		else if (selection == 3){
+			pat.printInventory();
+			rest();
+		}
+		return true;
+	}
     
     public static void main (String[] args){
 	Woo game = new Woo();
@@ -226,7 +253,7 @@ public class Woo{
 	milesTraveled = 0;
 
 	while (milesTraveled < maxMiles) {
-	    poo = milesTraveled;
+	    //poo = milesTraveled;
 	    if (!game.playTurn())
 		break;
 	    System.out.println();
