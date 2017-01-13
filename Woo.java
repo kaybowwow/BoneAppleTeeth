@@ -116,51 +116,57 @@ public class Woo{
 	System.out.println("\n Selection: ");
 
 	//try {
-	    selection = Keyboard.readInt();
+	selection = Keyboard.readInt();
 	    
-	    if (selection == 1) {
-		item = "oxen"; 
-		System.out.println("How many?");
-		System.out.println("Number: ");
-		selection2 = Keyboard.readInt();
-		minusMoney = 20 * selection2;
-	    }
-
-	    if (selection == 2) {
-		item = "medicine"; 
-		System.out.println("How many?");
-		System.out.println("Number: ");
-		selection2 = Keyboard.readInt();
-		minusMoney = 10 * selection2;
-	    }
-
-	    if (selection == 3) {
-		item = "food"; 
-		System.out.println("How many?");
-		System.out.println("Number: ");
-		selection2 = Keyboard.readInt();
-		minusMoney = 7 * selection2; 
-	    }
+	if (selection == 1) {
+	    item = "oxen"; 
+	    System.out.println("How many?");
+	    System.out.println("Number: ");
+	    selection2 = Keyboard.readInt();
+	    minusMoney = 20 * selection2;
 	    
-	    if (selection == 4) {
-		item = "heavy jacket"; 
-		System.out.println("How many?");
-		System.out.println("Number: ");
-		selection2 = Keyboard.readInt();
-		minusMoney = 15 * selection2; 
-	    }
-
-	    //Subtracting money 
-	    pat.money -= minusMoney;
-	    
-	    //Adding item(s) to inventory:
 	    for (int i = selection2; i > 0; i--) {
 		pat.inventory.add(item);
+		System.out.println(pat.inventory); 
 	    }
+	}
 
-	    //}
+	if (selection == 2) {
+	    item = "medicine"; 
+	    System.out.println("How many?");
+	    System.out.println("Number: ");
+	    selection2 = Keyboard.readInt();
+	    minusMoney = 10 * selection2;
+	}
 
-	    //	catch (Exception e) {}
+	if (selection == 3) {
+	    item = "food"; 
+	    System.out.println("How many?");
+	    System.out.println("Number: ");
+	    selection2 = Keyboard.readInt();
+	    minusMoney = 7 * selection2; 
+	}
+	    
+	if (selection == 4) {
+	    item = "heavy jacket"; 
+	    System.out.println("How many?");
+	    System.out.println("Number: ");
+	    selection2 = Keyboard.readInt();
+	    minusMoney = 15 * selection2; 
+	}
+
+	//Subtracting money 
+	pat.money -= minusMoney;
+	
+	    
+	//Adding item(s) to inventory:
+	for (int i = selection2; i > 0; i--) {
+	    pat.inventory.add(item);
+	    System.out.println(pat.inventory); 
+	}
+
+	   
+	System.out.println(pat.money); 
 	
 	
 
