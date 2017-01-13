@@ -5,7 +5,8 @@ public class Woo{
     
     private Player pat;
     private Member p1;
-
+    ArrayList<String> inventory = new ArrayList<String>();
+    
     public Woo() {
 	newGame();
     }
@@ -99,85 +100,87 @@ public class Woo{
 
     }
 
-    public ArrayList<String> shop() {
+    public void shop() {
 	int minusMoney = 0;
 	int selection;
 	int selection2 = 0;
-	String item = ""; 
+	String item = "";
+	String continueShopping = "yes"; 
 	
-	System.out.println("Welcome to the shop! Here is your current amount of available cash: " +
-			   pat.money +
-			   "\nWhat would you like to buy?");
-	System.out.println("\n 1. oxen: $20 each" +
-			   "\n 2. medicine (Cures all): $10 each" +
-			   "\n 3. food : $7 each" +
-			   "\n 4. heavy jacket: $15 each"
-			   );
-	System.out.println("\n Selection: ");
+	
+	while ( continueShopping.equals("yes") && (pat.money > 0) ) {
+	    System.out.println("Welcome to the shop! Here is your current amount of available cash: " +
+			       pat.money +
+			       "\nWhat would you like to buy?");
+	    System.out.println("\n 1. oxen: $20 each" +
+			       "\n 2. medicine (Cures all): $10 each" +
+			       "\n 3. food : $7 each" +
+			       "\n 4. heavy jacket: $15 each"
+			       );
+	    System.out.println("\n Selection: ");
 
-	//try {
-	selection = Keyboard.readInt();
+	    //try {
+	    selection = Keyboard.readInt();
 	    
-	if (selection == 1) {
-	    item = "oxen"; 
-	    System.out.println("How many?");
-	    System.out.println("Number: ");
-	    selection2 = Keyboard.readInt();
-	    minusMoney = 20 * selection2;
+	    if (selection == 1) {
+		item = "oxen"; 
+		System.out.println("How many?");
+		System.out.println("Number: ");
+		selection2 = Keyboard.readInt();
+		minusMoney = 20 * selection2;
+	    }
+
+	    if (selection == 2) {
+		item = "medicine"; 
+		System.out.println("How many?");
+		System.out.println("Number: ");
+		selection2 = Keyboard.readInt();
+		minusMoney = 10 * selection2;
+	    }
+
+	    if (selection == 3) {
+		item = "food"; 
+		System.out.println("How many?");
+		System.out.println("Number: ");
+		selection2 = Keyboard.readInt();
+		minusMoney = 7 * selection2; 
+	    }
 	    
+	    if (selection == 4) {
+		item = "heavy jacket"; 
+		System.out.println("How many?");
+		System.out.println("Number: ");
+		selection2 = Keyboard.readInt();
+		minusMoney = 15 * selection2; 
+	    }
+
+	    //Subtracting money 
+	    pat.money -= minusMoney;
+
+	    //adding to inventory: 
 	    for (int i = selection2; i > 0; i--) {
-		pat.inventory.add(item);
-		System.out.println(pat.inventory); 
+		addItem(item);
+	    }
+	    System.out.println("Continue shopping? Type 'yes' or 'no'");
+
+	    continueShopping = Keyboard.readString();
+
+	    if (continueShopping == "no") {
+	        for (int x = 0; x < inventory.size(); x++) {
+		    pat.inventory.add(inventory.get(x));
+		}
+		
+		return;
 	    }
 	}
-
-	if (selection == 2) {
-	    item = "medicine"; 
-	    System.out.println("How many?");
-	    System.out.println("Number: ");
-	    selection2 = Keyboard.readInt();
-	    minusMoney = 10 * selection2;
-	}
-
-	if (selection == 3) {
-	    item = "food"; 
-	    System.out.println("How many?");
-	    System.out.println("Number: ");
-	    selection2 = Keyboard.readInt();
-	    minusMoney = 7 * selection2; 
-	}
-	    
-	if (selection == 4) {
-	    item = "heavy jacket"; 
-	    System.out.println("How many?");
-	    System.out.println("Number: ");
-	    selection2 = Keyboard.readInt();
-	    minusMoney = 15 * selection2; 
-	}
-
-	//Subtracting money 
-	pat.money -= minusMoney;
 	
-	    
-	//Adding item(s) to inventory:
-	for (int i = selection2; i > 0; i--) {
-	    pat.inventory.add(item);
-	    System.out.println(pat.inventory); 
-	}
-
-	   
-	System.out.println(pat.money); 
-	
-	
-
-	
-	return pat.inventory;
+	System.out.println("Items in inventory: " + inventory);
+	System.out.println("Amount of money left: " + pat.money);
     }
 
-    
-	    
-    
-       
+    public void addItem (String item) {
+	inventory.add(item);
+    }
 
     
     public static void main (String[] args){
