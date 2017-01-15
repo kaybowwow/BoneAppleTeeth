@@ -33,7 +33,7 @@ public class Character{
     }
 
     public boolean isAlive() {
-	return (health > 0);
+	return (health >= 0);
     } 
 	
     /*    public void addToInv(String item){
