@@ -68,7 +68,14 @@ Andrew ::
 2017-01-14
 --------------------------------------------------------------
 Queenie ::
+
 Kevin ::
+Modified Woo, Character, and Player classes and subclasses
+1. Created an about() method that returns a string of the stats of a Player
+2. Modified the Continue option in playTurn() so that the inventory loses food, and the Player will eventually die.
+3. Moved inventory from Player class to Woo class
+4. Modified Woo so that family members can be added.
+
 Andrew ::
 
 2017-01-15
