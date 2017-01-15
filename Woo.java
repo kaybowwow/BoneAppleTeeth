@@ -35,7 +35,7 @@ public class Woo{
 	System.out.println(s);
 
 	try {
-	    name = Keyboard.readWord();
+	    name = Keyboard.readString();
 	}
 
         catch ( Exception e ) {
@@ -96,7 +96,7 @@ public class Woo{
 	    }
 	    
 	    try {
-		name = Keyboard.readWord();
+		name = Keyboard.readString();
 		if (membersLeft == 4) {
 		    spouse = new Member(name);}
 		if (membersLeft == 3) {

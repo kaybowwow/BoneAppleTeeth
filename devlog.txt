@@ -75,6 +75,7 @@ Modified Woo, Character, and Player classes and subclasses
 2. Modified the Continue option in playTurn() so that the inventory loses food, and the Player will eventually die.
 3. Moved inventory from Player class to Woo class
 4. Modified Woo so that family members can be added.
+5. Modified Woo so that characters can have spaces in their names.
 
 Andrew ::
 
