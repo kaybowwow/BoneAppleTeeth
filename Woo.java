@@ -7,7 +7,7 @@ public class Woo{
     
     private Player pat;
     private Member p1;
-    ArrayList<String> inventory = new ArrayList<String>();
+    private ArrayList<String> inventory = new ArrayList<String>();
 
     private int daysTraveled;
     private static int milesTraveled;
@@ -15,9 +15,9 @@ public class Woo{
     private boolean gameOver;
     
     public Woo() {
-		daysTraveled = 0;
-		gameOver = false;
-		newGame();
+	daysTraveled = 0;
+	gameOver = false;
+	newGame();
     }
     
     public void newGame() {
@@ -25,7 +25,7 @@ public class Woo{
 	String name = "";
 	int selection; 
 
-	s= "Welcome to the Oregon Trail! Who are you?";
+	s= "Welcome to the Oregon Trail! By what name do you go by?";
 	System.out.println(s);
 
 	try {
@@ -54,35 +54,35 @@ public class Woo{
 	try {
 	    selection = Keyboard.readInt();
 	    if (selection == 1) {
+		addItem("corn");
 		pat = new Farmer(name);
 		
 	    }
 
 	    if (selection == 2) {
+		addItem("wood");
 		pat = new Carpenter(name);
 	
 	    }
 
 	    if (selection == 3) {
+		addItem("winter jacket");
 		pat = new Banker(name);
 		
 	    }
 
 	    if (selection == 4) {
+		addItem("Blah");
 		pat = new Immigrant(name);
 	    }   
 	}
 
 	catch (Exception e) {
+	    addItem("corn");
 	    pat = new Farmer(name);
 	    System.out.println("Unexpected input received. Default settings are used: you are a farmer."); 
 	}
 
-	//printing initial stats; this would be in a new method called about():
-	System.out.println("Name: " + pat.name);
-	System.out.println("Health: " + pat.health);
-	System.out.println("Money: " + pat.money);
-	
 	System.out.println("\n Before you head on the road, would you like to buy anything?");
 
 	System.out.println("\n"+ "\t1: Yes" + "\t2: No");
@@ -99,8 +99,8 @@ public class Woo{
 	       playTurn() }
 	    */
 
-	    System.out.println(pat.inventory);
-	    System.out.println(pat.money); 
+	    System.out.println(inventory);
+	    //System.out.println(pat.money); 
 	}
 
 	catch (Exception e) {}
@@ -163,27 +163,27 @@ public class Woo{
 		minusMoney = 15 * selection2; 
 	    }
 
-		if (minusMoney > pat.money){
-			System.out.println("You can't afford that.");
+	    if (minusMoney > pat.money){
+		System.out.println("You can't afford that.");
+	    }
+	    else{
+		//subtracting money
+		pat.money -= minusMoney;
+		//adding to inventory: 
+		for (int i = selection2; i > 0; i--) {
+		    addItem(item);
 		}
-		else{
-			//subtracting money
-			pat.money -= minusMoney;
-			//adding to inventory: 
-			for (int i = selection2; i > 0; i--) {
-			addItem(item);
-			}
-		}
+	    }
 	    System.out.println("Continue shopping? Type 'yes' or 'no'");
 
 	    continueShopping = Keyboard.readString();
 
 	    if (continueShopping == "no") {
 	        for (int x = 0; x < inventory.size(); x++) {
-		    pat.inventory.add(inventory.get(x));
+		    inventory.add(inventory.get(x));
 		}
 		
-		return;
+	      
 	    }
 	}
 	
@@ -191,9 +191,26 @@ public class Woo{
 	System.out.println("Amount of money left: " + pat.money);
     }
 
+    public int getFirstIndexOf (String item) {
+        if (haveItem(item)) {
+	    for (int x = 0 ; x < inventory.size() ; x += 1) {
+		if (inventory.get(x) == item) {
+		    return x;
+		}
+	    }
+	}
+	return -1;
+    }
+
     public void addItem (String item) {
 	inventory.add(item);
-    }					
+    }
+
+    public void removeItem(String item) {
+	if (haveItem(item)) {
+	    inventory.remove(getFirstIndexOf(item));
+	}
+    }
 
     public boolean haveItem (String item) {
         for (int x = 0 ; x < inventory.size() ; x += 1) {
@@ -206,12 +223,31 @@ public class Woo{
     
     public boolean playTurn() {
 	int selection = 1;
+	System.out.println(pat.about());
 	System.out.println("\nWhat do you want to do?");
 	System.out.println("\t1: Continue\n\t2: Rest");
 	selection = Keyboard.readInt();
 
 	if (selection == 1) {
-		milesTraveled += pat.pace * 10;
+	    milesTraveled += pat.pace * 10;
+	    int rationCounter = pat.ration;
+	    while (rationCounter > 0) {
+		if (haveItem("food")) {
+		    System.out.println("yo eat");
+		    removeItem("food");
+		    rationCounter -= 1;
+		}
+		else {
+		    System.out.println("no de food!!!");
+		    if (pat.isAlive()) {
+			pat.health -= 10;
+		    }
+		    else {
+			return false;
+		    }
+		    rationCounter -= 1;
+		}
+	    }	
 	    System.out.println("Miles Traveled: " + milesTraveled);
 	}
 
@@ -221,31 +257,31 @@ public class Woo{
         return true;
     }
 	
-	public boolean rest(){
-		System.out.println("\t1: Continue\n\t2: Check Location\n\t3: Check Inventory");
-		int selection = Keyboard.readInt();
+    public boolean rest(){
+	System.out.println("\t1: Continue\n\t2: Check Location\n\t3: Check Inventory");
+	int selection = Keyboard.readInt();
 		
-		if (selection == 1){
-			System.out.println("Back to the trail!");
-		}
-		else if (selection == 2){
-			if (milesTraveled <= 20){
-				System.out.println("You're near the start.");
-			}
-			else if (milesTraveled >= 80){
-				System.out.println("You're near the end.");
-			}
-			else{
-				System.out.println("You're in the middle of nowhere.");
-			}
-			rest();
-		}
-		else if (selection == 3){
-			pat.printInventory();
-			rest();
-		}
-		return true;
+	if (selection == 1){
+	    System.out.println("Back to the trail!");
 	}
+	else if (selection == 2){
+	    if (milesTraveled <= 20){
+		System.out.println("You're near the start.");
+	    }
+	    else if (milesTraveled >= 80){
+		System.out.println("You're near the end.");
+	    }
+	    else{
+		System.out.println("You're in the middle of nowhere.");
+	    }
+	    rest();
+	}
+	else if (selection == 3){
+	    System.out.println(inventory);
+	    rest();
+	}
+	return true;
+    }
     
     public static void main (String[] args){
 	Woo game = new Woo();
@@ -253,7 +289,6 @@ public class Woo{
 	milesTraveled = 0;
 
 	while (milesTraveled < maxMiles) {
-	    //poo = milesTraveled;
 	    if (!game.playTurn())
 		break;
 	    System.out.println();
