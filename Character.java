@@ -6,6 +6,9 @@ public class Character{
     //int lastOccupiedInvSlot = 0;
     String name;
 
+    boolean hasDisease = false;
+    String disease; 
+
     public Character(int setHealth) {
 	health = setHealth;
     }
@@ -43,7 +46,7 @@ public class Character{
     public String about() {
 	String retStr = "";
 	if (isAlive()) {
-	    retStr += "\nPlayer 1: " + name
+	    retStr += name + "'s Stats: " 
 		+ "\nHealth: " + health;
 	}
 	else {

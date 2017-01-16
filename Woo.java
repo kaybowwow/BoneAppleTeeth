@@ -17,6 +17,11 @@ public class Woo{
     private static int milesTraveled;
     private int month;
     private boolean gameOver;
+
+    private String event;
+    private boolean randomEvent = false;
+
+    private String weather = "warm"; 
     //^^^^^^^^^^^^^^^^^^^^V A R I A B L E S^^^^^^^^^^^^^^^^^^^^
     
     //==========i m p o r t a n t   t h i n g s==========
@@ -56,7 +61,7 @@ public class Woo{
 	try {
 	    selection = Keyboard.readInt();
 	    if (selection == 1) {
-		addItem("corn");
+		addItem("food");
 		pat = new Farmer(name);
 	    }
 
@@ -66,17 +71,16 @@ public class Woo{
 	    }
 
 	    if (selection == 3) {
-		addItem("winter jacket");
+		addItem("clothing");
 		pat = new Banker(name);		
 	    }
 
 	    if (selection == 4) {
-		addItem("Blah");
 		pat = new Immigrant(name);
 	    }   
 	}
 	catch (Exception e) {
-	    addItem("corn");
+	    addItem("food");
 	    pat = new Farmer(name);
 	    System.out.println("Unexpected input received. Default settings are used: you are a farmer."); 
 	}
@@ -156,38 +160,43 @@ public class Woo{
 		if (selection == 1) {
 		    item = "oxen"; 
 		    System.out.println("How many?");
-		    System.out.println("Number: ");
 		    selection2 = Keyboard.readInt();
 		    minusMoney = 20 * selection2;
+		    System.out.println("Estimated cost: " + minusMoney);
+		    System.out.println("Remaining money: " + (pat.money-minusMoney)); 
 		}
 
 		if (selection == 2) {
 		    item = "medicine"; 
 		    System.out.println("How many?");
-		    System.out.println("Number: ");
 		    selection2 = Keyboard.readInt();
 		    minusMoney = 10 * selection2;
+		    System.out.println("Estimated cost: " + minusMoney);
+		    System.out.println("Remaining money: " + (pat.money-minusMoney)); 
 		}
 
 		if (selection == 3) {
 		    item = "food"; 
-		    System.out.println("How many?");
-		    System.out.println("Number: ");
+		    System.out.println("How much?");
 		    selection2 = Keyboard.readInt();
-		    minusMoney = 7 * selection2; 
+		    minusMoney = 7 * selection2;
+		    System.out.println("Estimated cost: " + minusMoney);
+		    System.out.println("Remaining money: " + (pat.money-minusMoney)); 
 		}
 	    
 		if (selection == 4) {
-		    item = "heavy jacket"; 
+		    item = "clothing"; 
 		    System.out.println("How many?");
-		    System.out.println("Number: ");
 		    selection2 = Keyboard.readInt();
-		    minusMoney = 15 * selection2; 
+		    minusMoney = 15 * selection2;
+		    System.out.println("Estimated cost: " + minusMoney);
+		    System.out.println("Remaining money: " + (pat.money-minusMoney)); 
 		}
 
 		if (minusMoney > pat.money){
 		    System.out.println("You can't afford that.");
 		}
+		
 		else{
 		    //subtracting money
 		    pat.money -= minusMoney;
@@ -214,8 +223,45 @@ public class Woo{
 	public boolean playTurn() {
 	    int selection = 1;
 	    System.out.println(pat.about());
+	    System.out.println(child1.about()); 
+	    System.out.println(child2.about());
+	    System.out.println(child3.about());
+	    System.out.println(spouse.about()); 
+
+	    setWeather();
+	    System.out.println("Current Weather: " + weather);
+
+	    System.out.println("Days traveled: " + daysTraveled); 
+	    
+
+	    int probabilityOccuring = (int)(Math.random() * 100); 
+
+	    if (probabilityOccuring < 50) {
+		randomEvent();
+		System.out.println(event);
+		if (child1.hasDisease) {
+		    child1.health -= 10;
+		}
+		if (child2.hasDisease){
+		    child2.health -= 10;
+		}
+		if (child3.hasDisease) {
+		    child3.health -=10;
+		}
+		if (spouse.hasDisease) {
+		    spouse.health -= 10;
+		}
+		if (pat.hasDisease) {
+		    pat.health -= 10;
+		}
+	    }
+	    
 	    System.out.println("\nWhat do you want to do?");
-	    System.out.println("\t1: Continue\n\t2: Rest");
+	    System.out.println("\t1: Continue\n" +
+			       "\t2: Rest\n" +
+			       "\t3: Check Location\n" +
+			       "\t4: Check Inventory\n");
+	    
 	    selection = Keyboard.readInt();
 
 	    if (selection == 1) {
@@ -237,24 +283,14 @@ public class Woo{
 			}
 			rationCounter -= 1;
 		    }
-		}	
-		System.out.println("Miles Traveled: " + milesTraveled);
+		}
 	    }
 
 	    if (selection == 2) {
 		rest();
 	    }
-	    return true;
-	}
 
-        public boolean rest(){
-	    System.out.println("\t1: Continue\n\t2: Check Location\n\t3: Check Inventory");
-	    int selection = Keyboard.readInt();
-		
-	    if (selection == 1){
-		System.out.println("Back to the trail!");
-	    }
-	    else if (selection == 2){
+	    if (selection == 3) {
 		if (milesTraveled <= 20){
 		    System.out.println("You're near the start.");
 		}
@@ -264,14 +300,138 @@ public class Woo{
 		else{
 		    System.out.println("You're in the middle of nowhere.");
 		}
-		rest();
 	    }
-	    else if (selection == 3){
+
+	    if (selection == 4) {
 		System.out.println(inventory);
-		rest();
 	    }
-	    return true;
+
+	    
+	  
+	    System.out.println("Miles Traveled: " + milesTraveled);
+	    
+	    daysTraveled += 1; 
+	    
+
+	    return true; 
+    
 	}
+
+    public boolean rest(){
+	daysTraveled += 1;   
+	return true;
+    }
+    
+    public String randomEvent() {
+	int prob = (int) (Math.random() * 100);
+	Character member; 
+	if (prob < 75) {
+	    member = child1;
+	}
+
+	if (prob < 50) {
+	    member = child2;
+	}
+
+	if (prob < 25) {
+	    member = child3;
+	}
+
+	if (prob < 15) {
+	    member = pat;
+	}
+
+	else {
+	    member = spouse;
+	}
+	
+	int probabilityEvent = (int)(Math.random() * 100);
+	
+	if (probabilityEvent != 0) {
+		
+	    if (probabilityEvent < 55 && weather == "rainy") {
+		event = "Thunderstorm";
+	    }
+
+	    else if (probabilityEvent < 45) {
+		event = member.name + " has dysentary!";
+		member.hasDisease = true;
+		member.disease = "Dysentary"; 
+	    }
+
+	    else if (probabilityEvent < 40) {
+		event = member.name + " has cholera!";
+		member.hasDisease = true;
+		member.disease = "Cholera"; 
+	    }
+
+	    else if (probabilityEvent < 37) {
+		event = "Wagon wheel broke";
+		System.out.print("One of your wagon wheels broke."); 
+	    }
+
+	    else if (probabilityEvent < 30) {
+		event = "Oxen injury";
+		System.out.println("One of your oxen has been injured."); 
+	    }
+
+	    else if (probabilityEvent < 25) {
+		event = "Earthquake";
+		System.out.println("There is an earthquake! Your pace, health, and food supplies have been reduced.");
+		pat.pace = 1; 
+		    
+	    }
+
+	    else if (probabilityEvent < 20) {
+		event = member.name + " has typhoid fever!";
+		member.hasDisease = true;
+		member.disease = "Typhoid Fever"; 
+	    }
+
+	    else if (probabilityEvent < 15) {
+		event = member.name + " got snatched away by an eagle!"; 
+		member.health -= 100;
+	    }
+	}
+
+	else {
+	    event = "none";
+	}
+    
+	   
+	//probabilityEvent = 0;
+	//probabilityOccuring = 0;
+    
+	return event;
+    }
+	
+
+    public String setWeather() {
+	if ( (daysTraveled % 3) == 0) {
+	    weather = "windy";
+	}
+
+	if ( (daysTraveled % 5) == 0) {
+	    weather = "cold";
+	}
+	
+	if (daysTraveled % 7 == 0) {
+	    weather = "rainy";
+	}
+
+	if ( (daysTraveled % 15) == 0) {
+	    weather = "dry";
+	}
+	
+	else {
+	    weather = "warm";
+	}
+
+	return weather; 
+	
+    }
+    
+    
 	//^^^^^^^^^^i m p o r t a n t   t h i n g s^^^^^^^^^^
 
 	//==========h e l p e r   f u n c t i o n s==========

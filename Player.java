@@ -35,7 +35,9 @@ public class Player extends Character{
 	if (isAlive()) {
 	    retStr += "\nPlayer 1: " + name
 		+ "\nHealth: " + health
-		+ "\nMoney: " + money;
+		+ "\nMoney: " + money
+	        + "\nRation Size: " + ration
+		+ "\nPace: " + pace;
 	}
 	else {
 	    retStr += "yo boy, " + name + " is dead";
