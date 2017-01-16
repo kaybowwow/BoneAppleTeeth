@@ -82,6 +82,14 @@ Andrew ::
 2017-01-15
 --------------------------------------------------------------
 Queenie ::
+Modified Woo and Character classes 
+1. Modified so that Characters have two new variables : boolean hasDisease and String disease which will indicate whether or not they have a disease.
+2. Added randomEvents() to Woo so that random events (natural disasters, diseases) can occur now at different probabilities. 
+3. Modified the weather variable in Woo by adding a method called setWeather() which can set different weathers according to the divisibility of the daysTraveled counter. 
+4. Modified the information printed each time the player continues by adding in how many days have passed.
+5. Edited the information the shop displays overtime the player makes a purchase (shows how much will be deducted and how much the user will have remaining).
+6. Edited the options the user can make at the start of every new round. 
+
 Kevin ::
 Andrew ::
 
