@@ -163,7 +163,9 @@ public class Woo{
 		    selection2 = Keyboard.readInt();
 		    minusMoney = 20 * selection2;
 		    System.out.println("Estimated cost: " + minusMoney);
-		    System.out.println("Remaining money: " + (pat.money-minusMoney)); 
+		    if (pat.money-minusMoney > 0) {
+			System.out.println("Remaining money: " + (pat.money-minusMoney));
+		    }
 		}
 
 		if (selection == 2) {
@@ -172,7 +174,9 @@ public class Woo{
 		    selection2 = Keyboard.readInt();
 		    minusMoney = 10 * selection2;
 		    System.out.println("Estimated cost: " + minusMoney);
-		    System.out.println("Remaining money: " + (pat.money-minusMoney)); 
+		    if (pat.money-minusMoney > 0) {
+			System.out.println("Remaining money: " + (pat.money-minusMoney));
+		    }
 		}
 
 		if (selection == 3) {
@@ -190,7 +194,9 @@ public class Woo{
 		    selection2 = Keyboard.readInt();
 		    minusMoney = 15 * selection2;
 		    System.out.println("Estimated cost: " + minusMoney);
-		    System.out.println("Remaining money: " + (pat.money-minusMoney)); 
+		    if (pat.money-minusMoney > 0) {
+			System.out.println("Remaining money: " + (pat.money-minusMoney));
+		    } 
 		}
 
 		if (minusMoney > pat.money){
@@ -222,16 +228,14 @@ public class Woo{
 
 	public boolean playTurn() {
 	    int selection = 1;
-	    System.out.println(pat.about());
-	    System.out.println(child1.about()); 
-	    System.out.println(child2.about());
-	    System.out.println(child3.about());
-	    System.out.println(spouse.about()); 
+	  
 
 	    setWeather();
 	    System.out.println("Current Weather: " + weather);
 
-	    System.out.println("Days traveled: " + daysTraveled); 
+	    System.out.println("Days traveled: " + daysTraveled);
+
+	    System.out.println("Miles Traveled: " + milesTraveled);
 	    
 
 	    int probabilityOccuring = (int)(Math.random() * 100); 
@@ -260,7 +264,8 @@ public class Woo{
 	    System.out.println("\t1: Continue\n" +
 			       "\t2: Rest\n" +
 			       "\t3: Check Location\n" +
-			       "\t4: Check Inventory\n");
+			       "\t4: Check Inventory\n" +
+			       "\t5: Check Stats");
 	    
 	    selection = Keyboard.readInt();
 
@@ -306,9 +311,15 @@ public class Woo{
 		System.out.println(inventory);
 	    }
 
-	    
+	    if (selection == 5) {
+		System.out.println(pat.about());
+		System.out.println(child1.about()); 
+		System.out.println(child2.about());
+		System.out.println(child3.about());
+		System.out.println(spouse.about());
+	    }
 	  
-	    System.out.println("Miles Traveled: " + milesTraveled);
+	    
 	    
 	    daysTraveled += 1; 
 	    
@@ -354,7 +365,7 @@ public class Woo{
 	    }
 
 	    else if (probabilityEvent < 45) {
-		event = member.name + " has dysentary!";
+		event = member.name + " has dysentery!";
 		member.hasDisease = true;
 		member.disease = "Dysentary"; 
 	    }
