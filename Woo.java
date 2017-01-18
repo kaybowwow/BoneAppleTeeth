@@ -242,7 +242,7 @@ public class Woo{
 
 	    if (probabilityOccuring < 50) {
 		randomEvent();
-		System.out.println(event);
+		
 		if (child1.hasDisease) {
 		    child1.health -= 10;
 		}
@@ -258,7 +258,8 @@ public class Woo{
 		if (pat.hasDisease) {
 		    pat.health -= 10;
 		}
-	    }
+
+  
 	    
 	    System.out.println("\nWhat do you want to do?");
 	    System.out.println("\t1: Continue\n" +
@@ -282,6 +283,10 @@ public class Woo{
 			System.out.println("no de food!!!");
 			if (pat.isAlive()) {
 			    pat.health -= 10;
+			    child1.health -= 10;
+			    child2.health -= 10;
+			    child3.health -= 10;
+			    spouse.health -= 10; 
 			}
 			else {
 			    return false;
@@ -355,52 +360,84 @@ public class Woo{
 	else {
 	    member = spouse;
 	}
+
+	System.out.println(member);
 	
 	int probabilityEvent = (int)(Math.random() * 100);
 	
 	if (probabilityEvent != 0) {
 		
 	    if (probabilityEvent < 55 && weather == "rainy") {
+		System.out.println("There is a thunderstorm! Your pace has been reduced to 1, you've lost 2 food items, and all members' health has been reduced by 5.") 
 		event = "Thunderstorm";
+		pat.pace = 1;
+		inventory.removeItem("food");
+		inventory.removeItem("food");
+		pat.health -= 5;
+		spouse.health -= 5;
+		child1.health -= 5;
+		child2.health -= 5;
+		child3.health -= 5; 
 	    }
 
 	    else if (probabilityEvent < 45) {
-		event = member.name + " has dysentery!";
+		event = "dysentery"; 
+		System.out.println( member.name + " has dysentery!" member.name + "'s health has been reduced by 30." member.name + "'s health will keep reducing by 10 until medicine is received." ); 
 		member.hasDisease = true;
-		member.disease = "Dysentary"; 
+		member.disease = "Dysentery";
+		member.health -= 30; 
 	    }
 
 	    else if (probabilityEvent < 40) {
-		event = member.name + " has cholera!";
+		event = cholera; 
+		System.out.println( member.name + " has cholera!" member.name + "'s health has been reduced by 30." member.name + "'s health will keep reducing by 10 until medicine is received." );
 		member.hasDisease = true;
-		member.disease = "Cholera"; 
+		member.disease = "Cholera";
+		member.health -= 30; 
 	    }
 
 	    else if (probabilityEvent < 37) {
-		event = "Wagon wheel broke";
-		System.out.print("One of your wagon wheels broke."); 
+		System.out.println("One of your wagon wheels broke. You are trapped in your current location for 2 days and your pace has been reduced to 1. It will stay as 1 until you fix it."); 
+		event = "BrokenWheel";
+		pat.pace = 1;
+		daysTraveled += 2; 
 	    }
 
 	    else if (probabilityEvent < 30) {
-		event = "Oxen injury";
-		System.out.println("One of your oxen has been injured."); 
+		System.out.println("One of your oxen has died."); 
+		event = "OxenDeath";
+		inventory.removeItem("oxen"); 
 	    }
 
 	    else if (probabilityEvent < 25) {
+		System.out.println("There is an earthquake! Your pace has been reduced to 1, your health has been decreased by 7, and your food supplies have been reduced by 3.");
 		event = "Earthquake";
-		System.out.println("There is an earthquake! Your pace, health, and food supplies have been reduced.");
-		pat.pace = 1; 
-		    
+		pat.pace = 1;
+
+		int i = 0; 
+		while (i < 3) { 
+		    inventory.removeItem("food");
+		    i += 1;
+		}
+
+		pat.health -= 7;
+		spouse.health -= 7;
+		child1.health -= 7;
+		child2.health -= 7;
+		child3.health -= 7;	    
 	    }
 
 	    else if (probabilityEvent < 20) {
-		event = member.name + " has typhoid fever!";
+		System.out.println( member.name + " has Typhoid Fever!" member.name + "'s health has been reduced by 50." member.name + "'s health will keep reducing by 10 until medicine is received." );
+		event = "TyphoidFever";
 		member.hasDisease = true;
-		member.disease = "Typhoid Fever"; 
+		member.disease = "Typhoid Fever";
+		member.health -= 50; 
 	    }
 
-	    else if (probabilityEvent < 15) {
-		event = member.name + " got snatched away by an eagle!"; 
+	    else if (probabilityEvent < 10) {
+		event = "EagleSnatch"; 
+	        System.out.println (member.name + " got snatched away by an eagle!" member.name + " has died."); 
 		member.health -= 100;
 	    }
 	}
