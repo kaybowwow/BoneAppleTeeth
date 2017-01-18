@@ -9,6 +9,8 @@ Our project is a simulation of a family's journey along the Oregon Trail. Your f
 
 
 To launch the game ...
-1. Make sure to be in the BoneAppleTeeth directory in your terminal.
-1. Type "javac Woo.java" into your terminal to compile Woo.java.
-2. Type "java Woo" into your terminal.
+<ol>
+<li>1. Make sure to be in the BoneAppleTeeth directory in your terminal.</li>
+<li>2. Type "javac Woo.java" into your terminal to compile Woo.java.</li>
+<li>3. Type "java Woo" into your terminal.</li>
+</ol>
