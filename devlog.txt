@@ -120,6 +120,7 @@ Modified Woo.java
 	       <item2>: <quantity2>
 	       . . .
 2. Modified addItem(item) method to add items AND sort the inventory at the same time.
+3. Modified "eating" algorithm so that each starving member loses health individually instead of the whole family losing health simultaneously.
 
 Andrew ::
 
