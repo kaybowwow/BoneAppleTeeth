@@ -258,6 +258,7 @@ public class Woo{
 		if (pat.hasDisease) {
 		    pat.health -= 10;
 		}
+	    }
 
   
 	    
@@ -323,16 +324,10 @@ public class Woo{
 		System.out.println(child3.about());
 		System.out.println(spouse.about());
 	    }
-	  
-	    
-	    
 	    daysTraveled += 1; 
-	    
-
-	    return true; 
-    
+	    return true;
 	}
-
+	    
     public boolean rest(){
 	daysTraveled += 1;   
 	return true;
@@ -368,11 +363,11 @@ public class Woo{
 	if (probabilityEvent != 0) {
 		
 	    if (probabilityEvent < 55 && weather == "rainy") {
-		System.out.println("There is a thunderstorm! Your pace has been reduced to 1, you've lost 2 food items, and all members' health has been reduced by 5.") 
+		System.out.println("There is a thunderstorm! Your pace has been reduced to 1, you've lost 2 food items, and all members' health has been reduced by 5.");
 		event = "Thunderstorm";
 		pat.pace = 1;
-		inventory.removeItem("food");
-		inventory.removeItem("food");
+		removeItem("food");
+		removeItem("food");
 		pat.health -= 5;
 		spouse.health -= 5;
 		child1.health -= 5;
@@ -382,15 +377,15 @@ public class Woo{
 
 	    else if (probabilityEvent < 45) {
 		event = "dysentery"; 
-		System.out.println( member.name + " has dysentery!" member.name + "'s health has been reduced by 30." member.name + "'s health will keep reducing by 10 until medicine is received." ); 
+		System.out.println( member.name + " has dysentery!" + member.name + "'s health has been reduced by 30." + member.name + "'s health will keep reducing by 10 until medicine is received." ); 
 		member.hasDisease = true;
 		member.disease = "Dysentery";
 		member.health -= 30; 
 	    }
 
 	    else if (probabilityEvent < 40) {
-		event = cholera; 
-		System.out.println( member.name + " has cholera!" member.name + "'s health has been reduced by 30." member.name + "'s health will keep reducing by 10 until medicine is received." );
+		event = "cholera"; 
+		System.out.println( member.name + " has cholera!" + member.name + "'s health has been reduced by 30." + member.name + "'s health will keep reducing by 10 until medicine is received." );
 		member.hasDisease = true;
 		member.disease = "Cholera";
 		member.health -= 30; 
@@ -406,7 +401,7 @@ public class Woo{
 	    else if (probabilityEvent < 30) {
 		System.out.println("One of your oxen has died."); 
 		event = "OxenDeath";
-		inventory.removeItem("oxen"); 
+		removeItem("oxen"); 
 	    }
 
 	    else if (probabilityEvent < 25) {
@@ -416,7 +411,7 @@ public class Woo{
 
 		int i = 0; 
 		while (i < 3) { 
-		    inventory.removeItem("food");
+		    removeItem("food");
 		    i += 1;
 		}
 
@@ -428,7 +423,7 @@ public class Woo{
 	    }
 
 	    else if (probabilityEvent < 20) {
-		System.out.println( member.name + " has Typhoid Fever!" member.name + "'s health has been reduced by 50." member.name + "'s health will keep reducing by 10 until medicine is received." );
+		System.out.println( member.name + " has Typhoid Fever!" + member.name + "'s health has been reduced by 50." + member.name + "'s health will keep reducing by 10 until medicine is received." );
 		event = "TyphoidFever";
 		member.hasDisease = true;
 		member.disease = "Typhoid Fever";
@@ -437,7 +432,7 @@ public class Woo{
 
 	    else if (probabilityEvent < 10) {
 		event = "EagleSnatch"; 
-	        System.out.println (member.name + " got snatched away by an eagle!" member.name + " has died."); 
+	        System.out.println (member.name + " got snatched away by an eagle!" + member.name + " has died."); 
 		member.health -= 100;
 	    }
 	}
