@@ -235,7 +235,26 @@ public class Woo{
 	if (child3.isAlive()) {numAlive += 1;}
 	//System.out.println(numAlive);
 	
+	if (numAlive != 5) {
+	    if (! child1.isAlive()) {
+		System.out.println(child1.name + " is dead!");
+	    }
 
+	    if (! child2.isAlive()) {
+		System.out.println(child2.name + " is dead!");
+	    }
+
+	    if (! child3.isAlive()) {
+		System.out.println(child3.name + " is dead!");
+	    }
+
+	    if (! spouse.isAlive()) {
+		System.out.println(spouse.name + " is dead!");
+	    }
+	}
+    
+		
+	    
 	setWeather();
 	System.out.println("Current Weather: " + weather);
 
@@ -359,15 +378,13 @@ public class Woo{
 	else {
 	    member = spouse;
 	}
-
-	System.out.println(member);
 	
 	int probabilityEvent = (int)(Math.random() * 100);
 	
 	if (probabilityEvent != 0) {
 		
 	    if (probabilityEvent < 55 && weather == "rainy") {
-		System.out.println("There is a thunderstorm! Your pace has been reduced to 1, you've lost 2 food items, and all members' health has been reduced by 5.");
+		System.out.println("There is a thunderstorm!" + "\n" + "Your pace has been reduced to 1, you've lost 2 food items, and all members' health has been reduced by 5.");
 		event = "Thunderstorm";
 		pat.pace = 1;
 		removeItem("food");
@@ -381,7 +398,7 @@ public class Woo{
 
 	    else if (probabilityEvent < 45) {
 		event = "dysentery"; 
-		System.out.println( member.name + " has dysentery!" + member.name + "'s health has been reduced by 30." + member.name + "'s health will keep reducing by 10 until medicine is received." ); 
+		System.out.println( member.name + " has dysentery! " + "\n" + member.name + "'s health has been reduced by 30. " + member.name + "'s health will keep reducing by 10 until medicine is received." ); 
 		member.hasDisease = true;
 		member.disease = "Dysentery";
 		member.health -= 30; 
@@ -389,14 +406,14 @@ public class Woo{
 
 	    else if (probabilityEvent < 40) {
 		event = "cholera"; 
-		System.out.println( member.name + " has cholera!" + member.name + "'s health has been reduced by 30." + member.name + "'s health will keep reducing by 10 until medicine is received." );
+		System.out.println( member.name + " has cholera!" + "\n" + member.name + "'s health has been reduced by 30. " + member.name + "'s health will keep reducing by 10 until medicine is received." );
 		member.hasDisease = true;
 		member.disease = "Cholera";
 		member.health -= 30; 
 	    }
 
 	    else if (probabilityEvent < 37) {
-		System.out.println("One of your wagon wheels broke. You are trapped in your current location for 2 days and your pace has been reduced to 1. It will stay as 1 until you fix it."); 
+		System.out.println("One of your wagon wheels broke." + "\n" + " You are trapped in your current location for 2 days and your pace has been reduced to 1. It will stay as 1 until you fix it."); 
 		event = "BrokenWheel";
 		pat.pace = 1;
 		daysTraveled += 2; 
@@ -409,7 +426,7 @@ public class Woo{
 	    }
 
 	    else if (probabilityEvent < 25) {
-		System.out.println("There is an earthquake! Your pace has been reduced to 1, your health has been decreased by 7, and your food supplies have been reduced by 3.");
+		System.out.println("There is an earthquake!" + "\n" + "Your pace has been reduced to 1, your health has been decreased by 7, and your food supplies have been reduced by 3.");
 		event = "Earthquake";
 		pat.pace = 1;
 
@@ -427,7 +444,7 @@ public class Woo{
 	    }
 
 	    else if (probabilityEvent < 20) {
-		System.out.println( member.name + " has Typhoid Fever!" + member.name + "'s health has been reduced by 50." + member.name + "'s health will keep reducing by 10 until medicine is received." );
+		System.out.println( member.name + " has Typhoid Fever! " + "\n" + member.name + "'s health has been reduced by 50. " + member.name + "'s health will keep reducing by 10 until medicine is received." );
 		event = "TyphoidFever";
 		member.hasDisease = true;
 		member.disease = "Typhoid Fever";
@@ -436,7 +453,7 @@ public class Woo{
 
 	    else if (probabilityEvent < 10) {
 		event = "EagleSnatch"; 
-	        System.out.println (member.name + " got snatched away by an eagle!" + member.name + " has died."); 
+	        System.out.println (member.name + " got snatched away by an eagle!" + "\n" + member.name + " has died."); 
 		member.health -= 100;
 	    }
 	}
@@ -444,11 +461,7 @@ public class Woo{
 	else {
 	    event = "none";
 	}
-    
-	   
-	//probabilityEvent = 0;
-	//probabilityOccuring = 0;
-    
+
 	return event;
     }
 	
