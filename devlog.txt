@@ -91,9 +91,45 @@ Modified Woo and Character classes
 6. Edited the options the user can make at the start of every new round. 
 
 Kevin ::
+
 Andrew ::
 
 2017-01-16
+--------------------------------------------------------------
+Queenie ::
+Kevin ::
+Andrew ::
+
+2017-01-17
+--------------------------------------------------------------
+Queenie ::
+Kevin ::
+Modified README.md
+1. Updated README.md file to display a brief project description and launch instructions.
+
+Andrew ::
+
+2017-01-18
+--------------------------------------------------------------
+Queenie ::
+
+Kevin ::
+Modified Woo.java
+1. Implemented a printInventory method that prints the contents of the inventory in the format:
+   	       <item1>: <quantity1>
+	       <item2>: <quantity2>
+	       . . .
+2. Modified addItem(item) method to add items AND sort the inventory at the same time.
+
+Andrew ::
+
+2017-01-19
+--------------------------------------------------------------
+Queenie ::
+Kevin ::
+Andrew ::
+
+2017-01-20
 --------------------------------------------------------------
 Queenie ::
 Kevin ::
