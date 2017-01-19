@@ -258,7 +258,7 @@ public class Woo{
 		child2.health -= 10;
 	    }
 	    if (child3.hasDisease) {
-		child3.health -=10;
+		child3.health -= 10;
 	    }
 	    if (spouse.hasDisease) {
 		spouse.health -= 10;
@@ -386,17 +386,17 @@ public class Woo{
 	    else if (probabilityEvent < 45) {
 		event = "dysentery"; 
 		System.out.println( member.getName() + " has dysentery! " + member.name + "'s health has been reduced by 30." + member.name + "'s health will keep reducing by 10 until medicine is received." ); 
+		member.health -= 30;
 		member.hasDisease = true;
 		member.disease = "Dysentery";
-		member.health -= 30; 
 	    }
 
 	    else if (probabilityEvent < 40) {
 		event = "cholera"; 
 		System.out.println( member.getName() + " has cholera! " + member.name + "'s health has been reduced by 30." + member.name + "'s health will keep reducing by 10 until medicine is received." );
+		member.health -= 30;
 		member.hasDisease = true;
 		member.disease = "Cholera";
-		member.health -= 30; 
 	    }
 
 	    else if (probabilityEvent < 37) {
