@@ -16,7 +16,6 @@ public class Woo{
     private int daysTraveled;
     private static int milesTraveled;
     private int month;
-    private boolean gameOver;
 
     private String event;
     private boolean randomEvent = false;
@@ -27,7 +26,6 @@ public class Woo{
     //==========i m p o r t a n t   t h i n g s==========
     public Woo() {
 	daysTraveled = 0;
-	gameOver = false;
 	newGame();
     }
     
@@ -314,7 +312,7 @@ public class Woo{
 	    }
 
 	    if (selection == 4) {
-		System.out.println(inventory);
+		printInventory();
 	    }
 
 	    if (selection == 5) {
@@ -471,13 +469,30 @@ public class Woo{
 	}
 
 	return weather; 
-	
     }
+    //prints contents of inventory in the format
+    //item1: quantity
+    //item2: quantity
+    public void printInventory() {
+	String retStr = "";
+	String item = "";
+	for (int x = 0 ; x < inventory.size() ; x += 1) {
+	    if (inventory.get(x) != item) {
+		item = inventory.get(x);
+		retStr += item + ": " + countItem(item) + "\n";
+	    }
+	}
+	System.out.println(retStr);
+    }
+	    
+	    
+	
     
     
 	//^^^^^^^^^^i m p o r t a n t   t h i n g s^^^^^^^^^^
 
 	//==========h e l p e r   f u n c t i o n s==========
+		
 	public int getFirstIndexOf (String item) {
 	    if (haveItem(item)) {
 		for (int x = 0 ; x < inventory.size() ; x += 1) {
@@ -490,7 +505,12 @@ public class Woo{
 	}
 
 	public void addItem (String item) {
-	    inventory.add(item);
+	    if (haveItem(item)) {
+		inventory.add(getFirstIndexOf(item) , item);
+	    }
+	    else {
+		inventory.add(item);
+	    }
 	}
 
 	public void removeItem(String item) {
@@ -506,6 +526,18 @@ public class Woo{
 		}
 	    }
 	    return false;
+	}
+
+	public int countItem (String item) {
+	    int quantity = 0;
+	    if (haveItem(item)) {
+		for (int x = 0 ; x < inventory.size() - 1 ; x += 1) {
+		    if (inventory.get(x) == item) {
+			quantity += 1;
+		    }
+		}
+	    }
+	    return quantity;
 	}
 	//^^^^^^^^^^h e l p e r f u n c t i o n s^^^^^^^^^^
 
