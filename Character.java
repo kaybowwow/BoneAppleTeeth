@@ -15,28 +15,12 @@ public class Character{
     public String getName() {
 	return name;
     }
-    /*   public String[] getInventory(){
-	return inventory;
-    }
-    
-    ***You can just do S.o.p(inventory) because inventory is an ArrayList
-    and ArrayLists have a built in toString ***
-    public void printInventory(){
-	String retstr = "[";
-	for (String i : inventory){
-	    retstr += i;
-	    retstr += ",";
-	}
-	retstr += "]";
-	System.out.println(retstr);
-	}*/
-
     public int getHealth() {
 	return health;
     }
 
     public boolean isAlive() {
-	return (health >= 0);
+	return (health > 0);
     } 
 	
     /*    public void addToInv(String item){
