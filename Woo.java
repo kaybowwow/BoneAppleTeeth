@@ -276,7 +276,8 @@ public class Woo{
 				   "\t3: Check Location\n" +
 				   "\t4: Check Inventory\n" +
 				   "\t5: Check Stats\n" +
-				   "\t6: Use item");
+				   "\t6: Use item\n" +
+				   "\t7: Hunt");
 	    
 		selection = Keyboard.readInt();
 
@@ -426,7 +427,12 @@ public class Woo{
 			    }
 			}
 		    }
-		}		
+		}
+
+		if (selection2 == 7) {
+		    hunt();
+		}
+		    
 		
 	    
 		//stuff done at the end of every playTurn()
@@ -484,7 +490,7 @@ public class Woo{
 	
 	int probabilityEvent = (int)(Math.random() * 100);
 	
-	if (probabilityEvent != 0 && (daysTraveled > 0)) {
+	if ( (probabilityEvent != 0) && (days > 0)) {
 		
 	    if (probabilityEvent < 55 && weather == "rainy") {
 		System.out.println("There is a thunderstorm!" + "\n" + "Your pace has been reduced to 1, you've lost 2 food items, and all members' health has been reduced by 5.");
@@ -610,36 +616,97 @@ public class Woo{
     }
 
     public void eat() {
-		for (int x = 0 ; x < numAlive ; x += 1) {
-		    if (haveItem("food")) {
-			//System.out.println("we got chipotle.");
-			removeItem("food");
-		    }
-		    else {
-			//System.out.println("oh no potato famine");
-			if (pat.isAlive() && x == 0) {
-			    pat.health -= 25;
-			    if (!pat.isAlive()) {
-				System.out.println(pat.name + "'s life slips away . . .");}}
-			if (spouse.isAlive() && x == 1) {
-			    spouse.health -= 25;
-			    if (!spouse.isAlive()) {
-				System.out.println(spouse.name + "'s life slips away . . .");}}
-			if (child1.isAlive() && x == 2) {
-			    child1.health -= 25;
-			    if (!child1.isAlive()) {
-				System.out.println(child1.name + "'s life slips away . . .");}}	
-			if (child2.isAlive() && x == 3) {
-			    child2.health -= 25;
-			    if (!child2.isAlive()) {
-				System.out.println(child2.name + "'s life slips away . . .");}}
-			if (child3.isAlive() && x == 4) {
-			    child3.health -= 25;
-			    if (!child3.isAlive()) {
-				System.out.println(child3.name + "'s life slips away . . .");}}
+	for (int x = 0 ; x < numAlive ; x += 1) {
+	    if (haveItem("food")) {
+		//System.out.println("we got chipotle.");
+		removeItem("food");
+	    }
+	    else {
+		//System.out.println("oh no potato famine");
+		if (pat.isAlive() && x == 0) {
+		    pat.health -= 25;
+		    if (!pat.isAlive()) {
+			System.out.println(pat.name + "'s life slips away . . .");}}
+		if (spouse.isAlive() && x == 1) {
+		    spouse.health -= 25;
+		    if (!spouse.isAlive()) {
+			System.out.println(spouse.name + "'s life slips away . . .");}}
+		if (child1.isAlive() && x == 2) {
+		    child1.health -= 25;
+		    if (!child1.isAlive()) {
+			System.out.println(child1.name + "'s life slips away . . .");}}	
+		if (child2.isAlive() && x == 3) {
+		    child2.health -= 25;
+		    if (!child2.isAlive()) {
+			System.out.println(child2.name + "'s life slips away . . .");}}
+		if (child3.isAlive() && x == 4) {
+		    child3.health -= 25;
+		    if (!child3.isAlive()) {
+			System.out.println(child3.name + "'s life slips away . . .");}}
+	    }
+	}
+    }
+
+    public void hunt() {
+	System.out.println("Welcome to hunting! Here's how the game will work:\n");
+	System.out.println("You're going to have 7 chances to guess a random number picked by the computer between 1-30 inclusive.");
+	System.out.println("If you get the number right with 3 or less guesses, then you will be rewarded with 7 food items.");
+	System.out.println("If you get the number right with 5 or less guesses, then you will be rewarded with 5 food items.");
+	System.out.println("If you get the number right with 7 or less guesses, then you will be rewarded with 3 food items.");
+	System.out.println("If you don't guess the number, you will not receive any food.");
+	System.out.println("Ready?");
+
+	int firstNumber = 1;        //First number index (range)
+	int lastNumber = 30;       //Last number index (range) 
+	int number = (int)(Math.random()*100);  //Randomly selected number from 1-100
+	int userNumber = -1;  //Number inputted by the user. Initial value is set to -1 in order to initiate the while loop 
+	int numTries = 0;  // The number of tries it takes for the user to guess the correct number 
+	
+	while (numTries < 7) {
+	    System.out.println("Guess a number between " + firstNumber + "-" + lastNumber);
+	    userNumber = Keyboard.readInt();
+	    if (userNumber > number) {
+		lastNumber = userNumber - 1;
+		numTries += 1;
+		System.out.println("Too high, Try again...");
+	    }
+	    
+	    if (userNumber < number) {
+		firstNumber = userNumber + 1;
+		numTries += 1;
+		System.out.println("Too low, Try again...");
+	    }
+
+	    if (userNumber == number) {
+		int i = 0;
+		if (numTries <=3) {
+		    System.out.println("Congrats, you received 7 food items.");
+		    while (i < 7) {
+			addItem("food");
 		    }
 		}
+
+		if (numTries <= 5) {
+		    System.out.println("Congrats, you received 5 food items.");
+		    while (i < 5) {
+			addItem("food");
+		    }
+		}
+
+		if (numTries <= 7) {
+		    System.out.println("Congrats, you received 3 food items.");
+		    while (i < 3) {
+			addItem("food");
+		    }
+		}
+	    }
+	}
+
+	if (numTries > 7) {
+	    System.out.println("Sorry, you received no food items. Try again next time!");
+	}
     }
+	
 	
 	    
 	
