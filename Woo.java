@@ -20,8 +20,8 @@ public class Woo{
     private static int milesTraveled;
     private String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
     private int month = 2;
+    private Object[][] landmark = {{"Kevintown",0},{"QueenieTown",150},{"ChendrewTown",300},{"Mykolyk River",450},{"PChanTown",600},{"Topher River",750},{"Oregon",1000}};
     
-
     private String event;
     private boolean randomEvent = false;
 
@@ -490,7 +490,11 @@ public class Woo{
 	
 	int probabilityEvent = (int)(Math.random() * 100);
 	
+<<<<<<< HEAD
 	if ( (probabilityEvent != 0) && (days > 0)) {
+=======
+	if (probabilityEvent != 0 && (days > 0)) {
+>>>>>>> 4b55b18db021a3c66f4965ec406628efd24a3e0a
 		
 	    if (probabilityEvent < 55 && weather == "rainy") {
 		System.out.println("There is a thunderstorm!" + "\n" + "Your pace has been reduced to 1, you've lost 2 food items, and all members' health has been reduced by 5.");
