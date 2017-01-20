@@ -112,6 +112,14 @@ Andrew ::
 2017-01-18
 --------------------------------------------------------------
 Queenie ::
+1. Altered game structure so that game ended right away when Player is dead 
+2. Added in more comments
+3. Changed the algorithm for the probability of each Character having an event happen to them (getting a disease, etc.) so that everyone had an equal chance of getting something
+4. Made the printing statements more clear and detailed. 
+5. Added more medicine items into the shop with a more variety of +hp
+6. Implemented the ability to use items each round (Medicine, wagon fixing items) 
+7. Set a limit on the size of the inventory 
+8. Fixed a small bug in the shop when adding the items bought 
 
 Kevin ::
 Modified Woo.java

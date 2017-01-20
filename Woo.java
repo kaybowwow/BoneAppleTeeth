@@ -25,7 +25,9 @@ public class Woo{
     private String event;
     private boolean randomEvent = false;
 
-    private String weather = "warm"; 
+    private String weather = "warm";
+
+    private boolean isInventoryFull = false; 
     //^^^^^^^^^^^^^^^^^^^^V A R I A B L E S^^^^^^^^^^^^^^^^^^^^
     
     //==========i m p o r t a n t   t h i n g s==========
@@ -68,7 +70,7 @@ public class Woo{
 	    }
 
 	    if (selection == 2) {
-		addItem("wood");
+		addItem("wagonFixer");
 		pat = new Carpenter(name);	
 	    }
 
@@ -138,7 +140,8 @@ public class Woo{
 	catch (Exception e) {}
     }
 
-    private Object[][] shopItems = {{"oxen",40},{"medicine",20},{"food",7},{"clothing",15}}; 
+    private Object[][] shopItems = { {"oxen",40},{"standardMedicine",15},{"goodMedicine",25},{"ultraMedicine",50},{"superiorMedicine",75},{"food",7},{"clothing",15},{"wagonFixer",7} };
+    
     public void shop() {
 	int cost = 0;
 	int selection;
@@ -146,14 +149,18 @@ public class Woo{
 	String item = "";
 	String continueShopping = "yes"; 
 	
-	while ( continueShopping.equals("yes") && (pat.money > 0) ) {
+	while ( continueShopping.equals("yes") && (pat.money > 0) && (! isInventoryFull)) {
 	    System.out.println("Welcome to the shop! Here is your current amount of available cash: " +
 			       pat.money +
 			       "\nWhat would you like to buy?");
-	    System.out.println("\n 1. oxen: $40 each" +
-			       "\n 2. medicine (Cures all): $20 each" +
-			       "\n 3. food : $7 each" +
-			       "\n 4. heavy jacket: $15 each"
+	    System.out.println("\t1: Oxen: $40 each\n" +
+			       "\t2: Standard Medicine (+15 Health): $15 each\n" +
+			       "\t3: Good Medicine (+25 Health): $25 each\n" +
+			       "\t4: Ultra Medicine (+75 Health): $50 each\n" +
+			       "\t5: Superior Medicine (+100 Health) : $75 each\n" +
+			       "\t6: Food : $7 each\n" +
+			       "\t7: Heavy jacket: $15 each\n" +
+			       "\t8: Wagon fixing items: $7 each\n"  
 			       );
 	    System.out.println("\n Selection: ");
 
@@ -168,130 +175,85 @@ public class Woo{
 		System.out.println("Remaining money: " + (pat.money - cost));
 		pat.money -= cost;
 		for (int i = selection2; i > 0; i--) {
-		    addItem((shopItems[selection][0]).toString());
+		    addItem((shopItems[selection-1][0]).toString());
 		}
 	    }
 	    else {
 		System.out.println("You can't afford that.");
 	    }
-	    /*
-	    if (selection == 1) {
-		item = "oxen"; 
-		System.out.println("How many?");
-		selection2 = Keyboard.readInt();
-		minusMoney = 40 * selection2;
-		System.out.println("Estimated cost: " + minusMoney);
-		if (pat.money - minusMoney > 0) {
-		    System.out.println("Remaining money: " + (pat.money-minusMoney));
-		}
-	    }
-	
 
-	    if (selection == 2) {
-		item = "medicine"; 
-		System.out.println("How many?");
-		selection2 = Keyboard.readInt();
-		minusMoney = 20 * selection2;
-		System.out.println("Estimated cost: " + minusMoney);
-		if (pat.money-minusMoney > 0) {
-		    System.out.println("Remaining money: " + (pat.money-minusMoney));
-		}
-	    }
-
-	    if (selection == 3) {
-		item = "food"; 
-		System.out.println("How much?");
-		selection2 = Keyboard.readInt();
-		minusMoney = 7 * selection2;
-		System.out.println("Estimated cost: " + minusMoney);
-		System.out.println("Remaining money: " + (pat.money-minusMoney)); 
+	    if (isInventoryFull) {
+		System.out.println("Inventory is full. You will now start the game."); 
 	    }
 	    
-	    if (selection == 4) {
-		item = "clothing"; 
-		System.out.println("How many?");
-		selection2 = Keyboard.readInt();
-		minusMoney = 15 * selection2;
-		System.out.println("Estimated cost: " + minusMoney);
-		if (pat.money-minusMoney > 0) {
-		    System.out.println("Remaining money: " + (pat.money-minusMoney));
-		} 
-	    }
+	    else {
+		System.out.println("Continue shopping? Type 'yes' or 'no'");
 
-	    if (minusMoney > pat.money){
-		System.out.println("You can't afford that.");
-	    }
-		
-	    else{
-		//subtracting money
-		pat.money -= minusMoney;
-		//adding to inventory: 
-		for (int i = selection2; i > 0; i--) {
-		    addItem(item);
-		}
-	    } */
-	    System.out.println("Continue shopping? Type 'yes' or 'no'");
+		continueShopping = Keyboard.readString();
 
-	    continueShopping = Keyboard.readString();
-
-	    if (continueShopping == "no") {
-		for (int x = 0; x < inventory.size(); x++) {
-		    inventory.add(inventory.get(x));
+		if (continueShopping == "no") {
+		    for (int x = 0; x < inventory.size(); x++) {
+			inventory.add(inventory.get(x));
+		    }
 		}
 	    }
 	}
 	
-	System.out.println("Items in inventory: " + inventory);
+	printInventory(); 
 	System.out.println("Amount of money left: " + pat.money);
     }
 
     public boolean playTurn() {
 	int selection = 1;
+	int selection2 = 1; 
 
-	numAlive = 1;
-	if (spouse.isAlive()) {numAlive += 1;}
-	if (child1.isAlive()) {numAlive += 1;}
-	if (child2.isAlive()) {numAlive += 1;}
-	if (child3.isAlive()) {numAlive += 1;}
-	//System.out.println(numAlive);
-<<<<<<< HEAD
-	
-	if (numAlive != 5) {
-	    if (! child1.isAlive()) {
-		System.out.println(child1.name + " is dead!");
+	if (pat.isAlive()) {
+	    numAlive = 1;
+	    if (spouse.isAlive()) {numAlive += 1;}
+	    if (child1.isAlive()) {numAlive += 1;}
+	    if (child2.isAlive()) {numAlive += 1;}
+	    if (child3.isAlive()) {numAlive += 1;}
+	    if (numAlive != 5) {
+		if (! child1.isAlive()) {
+		    System.out.println(child1.name + " is dead!");
+		}
+
+		if (! child2.isAlive()) {
+		    System.out.println(child2.name + " is dead!");
+		}
+
+
+		//pace depends on the number of oxen in the inventory
+		pat.pace = 1.0 + (0.1 * countItem("oxen"));
+		   
+
+		if (! child3.isAlive()) {
+		    System.out.println(child3.name + " is dead!");
+		}
+
+		if (! spouse.isAlive()) {
+		    System.out.println(spouse.name + " is dead!");
+		}
 	    }
-
-	    if (! child2.isAlive()) {
-		System.out.println(child2.name + " is dead!");
-	    }
-=======
-
-	//pace depends on the number of oxen in the inventory
-	pat.pace = 1.0 + (0.1 * countItem("oxen"));
->>>>>>> d20afc7140e79339bd8cf13f4bf6ee5743a970ea
-
-	    if (! child3.isAlive()) {
-		System.out.println(child3.name + " is dead!");
-	    }
-
-	    if (! spouse.isAlive()) {
-		System.out.println(spouse.name + " is dead!");
-	    }
-	}
     
 		
 	    
-	setWeather();
-	System.out.println(months[month] + " " + (days+1) + ", 1849");
-	System.out.println("Current Weather: " + weather);
-	System.out.println("Days traveled: " + days);
-	System.out.println("Miles Traveled: " + milesTraveled);
+	    setWeather();
+	    System.out.println(months[month] + " " + (days+1) + ", 1849");
+	    System.out.println("Current Weather: " + weather);
+	    System.out.println("Days traveled: " + days);
+	    System.out.println("Miles Traveled: " + milesTraveled);
 	    
-	int probabilityOccuring = (int)(Math.random() * 100); 
+	    int probabilityOccuring = (int)(Math.random() * 100); 
 
-	if (probabilityOccuring < 50) {
-	    randomEvent();
-		
+	    if (probabilityOccuring < 50) {
+		randomEvent();
+	    }
+
+	    if (pat.hasDisease) {
+		pat.health -= 10;
+	    }
+	    	
 	    if (child1.hasDisease) {
 		child1.health -= 10;
 	    }
@@ -304,70 +266,185 @@ public class Woo{
 	    if (spouse.hasDisease) {
 		spouse.health -= 10;
 	    }
-	    if (pat.hasDisease) {
-		pat.health -= 10;
-	    }
-	}
+	   
 
-	boolean continuee = false;
-        while (!continuee){    
-	    System.out.println("\nWhat do you want to do?");
-	    System.out.println("\t1: Continue\n" +
-			       "\t2: Rest\n" +
-			       "\t3: Check Location\n" +
-			       "\t4: Check Inventory\n" +
-			       "\t5: Check Stats");
+	    boolean continuee = false;
+	    while (!continuee){    
+		System.out.println("\nWhat do you want to do?");
+		System.out.println("\t1: Continue\n" +
+				   "\t2: Rest\n" +
+				   "\t3: Check Location\n" +
+				   "\t4: Check Inventory\n" +
+				   "\t5: Check Stats\n" +
+				   "\t6: Use item");
 	    
-	    selection = Keyboard.readInt();
+		selection = Keyboard.readInt();
 
-	    //we will revolutionize the consumption of food products !!!
-	    if (selection == 1) {
-		continuee = true;
-		milesTraveled += pat.pace * 10;
-		eat();
-	    }
-
-	    if (selection == 2) {
-		rest();
-	    }
-
-	    if (selection == 3) {
-		if (milesTraveled <= (maxMiles/5)){
-		    System.out.println("You're near the start.");
+		//we will revolutionize the consumption of food products !!!
+		if (selection == 1) {
+		    continuee = true;
+		    milesTraveled += pat.pace * 10;
+		    eat();
 		}
-		else if (milesTraveled >= ((4 * maxMiles)/5)){
-		    System.out.println("You're near the end.");
-		}
-		else{
-		    System.out.println("You're in the middle of nowhere.");
-		}
-	    }
 
-	    if (selection == 4) {
-		printInventory();
-	    }
+		if (selection == 2) {
+		    rest();
+		}
 
-	    if (selection == 5) {
-		System.out.println(pat.about());
-		System.out.println(child1.about()); 
-		System.out.println(child2.about());
-		System.out.println(child3.about());
-		System.out.println(spouse.about());
+		if (selection == 3) {
+		    if (milesTraveled <= (maxMiles/5)){
+			System.out.println("You're near the start.");
+		    }
+		    else if (milesTraveled >= ((4 * maxMiles)/5)){
+			System.out.println("You're near the end.");
+		    }
+		    else{
+			System.out.println("You're in the middle of nowhere.");
+		    }
+		}
+
+		if (selection == 4) {
+		    printInventory();
+		}
+
+		if (selection == 5) {
+		    System.out.println(pat.about());
+		    System.out.println(child1.about()); 
+		    System.out.println(child2.about());
+		    System.out.println(child3.about());
+		    System.out.println(spouse.about());
+		}
+
+		if (selection == 6) {
+		    System.out.println("Here is your current inventory:" + "\n");
+		    printInventory(); 
+		    System.out.println("What would you like to use?");
+		    System.out.println("\t1: Medicine\n" +
+				       "\t2: Wagon Fixing Stuff");
+		    
+		    selection2 = Keyboard.readInt();
+
+		    if (selection2 == 1) {
+			int healthIncrease;
+
+			Character member = pat;
+
+			System.out.println("Here are the current stats of your party:");
+			System.out.println(pat.about());
+			System.out.println(child1.about()); 
+			System.out.println(child2.about());
+			System.out.println(child3.about());
+			System.out.println(spouse.about());
+
+			System.out.println("\nWho would you like to apply it to?");
+			System.out.println("\t1:" + pat.name + "\n" +
+					   "\t2:" + child1.name + "\n" +
+					   "\t3:" + child2.name + "\n" +
+					   "\t4:" + child3.name + "\n" +
+					   "\t5:" + spouse.name);
+
+			selection2 = Keyboard.readInt();
+
+			if (selection2 == 1) {
+			    member = pat;
+			}
+
+			if (selection2 == 2) {
+			    member = child1;
+			}
+			if (selection2 == 3) {
+			    member = child2;
+			}
+			if (selection2 == 4) {
+			    member = child3;
+			}
+
+			if (selection2 == 5) {
+			    member = spouse;
+			}
+			
+			System.out.println("What kind of medicine?");
+			System.out.println("\t1: Standard medicine\n" +
+					   "\t2: Good medicine\n" +
+					   "\t3: Ultra medicine\n" +
+					   "\t4: Superior medicine\n"); 
+			
+			selection2 = Keyboard.readInt();
+
+			if (selection2 == 1) {
+			    if (haveItem("standardMedicine")) {
+				member.health += 15;
+				member.hasDisease = false;
+			    }
+			    else {
+				System.out.println("You don't have that item!");
+			    }
+			
+			}
+		      
+			if (selection2 == 2) {
+			    if (haveItem("goodMedicine")) {
+				member.health += 25;
+				member.hasDisease = false;
+			    }
+			    else {
+				System.out.println("You don't have that item!");
+			    }
+			}
+			    
+			if (selection2 == 3) {
+			    if (haveItem("ultraMedicine")) {
+				member.health += 75;
+				member.hasDisease = false;
+			    }
+			    else {
+				System.out.println("You don't have that item!");
+			    }
+			}
+			    
+			if (selection2 == 4) {
+			    if (haveItem("superiorMedicine")) {
+				member.health += 100;
+				member.hasDisease = false; 
+			    }
+			    else {
+				System.out.println("You don't have that item!");
+			    }
+			}
+
+		
+		    }
+
+		    if (selection2 == 2) {
+			if (haveItem("wagonFixer")) {
+			    if (event.equals("BrokenWheel")) {
+				event = "none";
+				pat.pace = 2;
+			    }
+			    else {
+				System.out.println("There's nothing to fix!");
+			    }
+			}
+		    }
+		}		
+		
+	    
+		//stuff done at the end of every playTurn()
+		//progression of days and months
+		days += 1;
+		if ((days+1 > 30) && ((month % 2) == 0)) {
+		    month += 1;
+		    days = (days + 1)%30;
+		}
+		if ((days+1 > 31) && ((month % 2) == 1)) {
+		    month += 1;
+		    days = (days + 1)%31;
+		}
 	    }
+	  
+	    return true;
 	}
-	//stuff done at the end of every playTurn()
-	//progression of days and months
-	days += 1;
-	if ((days+1 > 30) && ((month % 2) == 0)) {
-	    month += 1;
-	    days = (days + 1)%30;
-	}
-	if ((days+1 > 31) && ((month % 2) == 1)) {
-	    month += 1;
-	    days = (days + 1)%31;
-	}
-	if (!pat.isAlive()) {return false;}
-	return true;
+	return false;
     }
 	    
     public boolean rest(){
@@ -381,31 +458,33 @@ public class Woo{
     }
     
     public String randomEvent() {
-	int prob = (int) (Math.random() * 100);
+	event = "";
+	
+	int prob = ((int) (Math.random() * 10));
 	Character member; 
-	if (prob < 75) {
+	if (prob < 2) {
 	    member = child1;
 	}
 
-	if (prob < 50) {
+	if (prob >= 2 && prob < 4) {
 	    member = child2;
 	}
 
-	if (prob < 25) {
+	if (prob >= 4 && prob < 6) {
 	    member = child3;
 	}
 
-	if (prob < 15) {
-	    member = pat;
-	}
-
-	else {
+	if (prob >=7 && prob < 9) {
 	    member = spouse;
+	}
+	
+	else {
+	    member = pat;
 	}
 	
 	int probabilityEvent = (int)(Math.random() * 100);
 	
-	if (probabilityEvent != 0) {
+	if (probabilityEvent != 0 && (daysTraveled > 0)) {
 		
 	    if (probabilityEvent < 55 && weather == "rainy") {
 		System.out.println("There is a thunderstorm!" + "\n" + "Your pace has been reduced to 1, you've lost 2 food items, and all members' health has been reduced by 5.");
@@ -422,24 +501,16 @@ public class Woo{
 
 	    else if (probabilityEvent < 45) {
 		event = "dysentery"; 
-<<<<<<< HEAD
 		System.out.println( member.name + " has dysentery! " + "\n" + member.name + "'s health has been reduced by 30. " + member.name + "'s health will keep reducing by 10 until medicine is received." ); 
-=======
-		System.out.println( member.getName() + " has dysentery! " + member.name + "'s health has been reduced by 30." + member.name + "'s health will keep reducing by 10 until medicine is received." ); 
 		member.health -= 30;
->>>>>>> d20afc7140e79339bd8cf13f4bf6ee5743a970ea
 		member.hasDisease = true;
 		member.disease = "Dysentery";
 	    }
 
 	    else if (probabilityEvent < 40) {
 		event = "cholera"; 
-<<<<<<< HEAD
 		System.out.println( member.name + " has cholera!" + "\n" + member.name + "'s health has been reduced by 30. " + member.name + "'s health will keep reducing by 10 until medicine is received." );
-=======
-		System.out.println( member.getName() + " has cholera! " + member.name + "'s health has been reduced by 30." + member.name + "'s health will keep reducing by 10 until medicine is received." );
 		member.health -= 30;
->>>>>>> d20afc7140e79339bd8cf13f4bf6ee5743a970ea
 		member.hasDisease = true;
 		member.disease = "Cholera";
 	    }
@@ -498,6 +569,8 @@ public class Woo{
     }
 	
 
+    //Sets the weather condition for the day
+    //Algorithm: every __ days, ___ weather condition will occur 
     public String setWeather() {
 	if ( (days % 3) == 0) {
 	    weather = "windy";
@@ -588,13 +661,19 @@ public class Woo{
     }
 
     public void addItem (String item) {
-        
-	if (haveItem(item)) {
-	    inventory.add(getFirstIndexOf(item) , item);
+        if (inventory.size() < 31) {
+	    if (haveItem(item)) {
+		inventory.add(getFirstIndexOf(item) , item);
+	    }
+	    else {
+		inventory.add(item);
+	    }
 	}
 	else {
-	    inventory.add(item);
+	    System.out.println("Your inventory is full.");
+	    isInventoryFull = true; 
 	}
+	
     }
 
     public void removeItem(String item) {
@@ -605,7 +684,7 @@ public class Woo{
 
     public boolean haveItem (String item) {
 	for (int x = 0 ; x < inventory.size() ; x += 1) {
-	    if (inventory.get(x) == item) {
+	    if (inventory.get(x).equals(item)) {
 		return true;
 	    }
 	}
