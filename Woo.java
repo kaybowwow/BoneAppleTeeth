@@ -19,8 +19,7 @@ public class Woo{
     private int days = 0;
     private static int milesTraveled;
     private String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
-    private int month = 2;
-    
+    private int month = 2;    
 
     private String event;
     private boolean randomEvent = false;
@@ -127,7 +126,7 @@ public class Woo{
 	System.out.println("\n Before you head on the road, would you like to buy anything?");
 	System.out.println("\n"+ "\t1: Yes" + "\t2: No");
 
-	try {
+       	try {
 	    selection = Keyboard.readInt();
 
 	    if (selection == 1) {
@@ -140,7 +139,8 @@ public class Woo{
 	catch (Exception e) {}
     }
 
-    private Object[][] shopItems = { {"oxen",40},{"standardMedicine",15},{"goodMedicine",25},{"ultraMedicine",50},{"superiorMedicine",75},{"food",7},{"clothing",15},{"wagonFixer",7} };
+    private Object[][] Items = { {"oxen",40,0},{"standardMedicine",15,1},{"goodMedicine",25,1},{"ultraMedicine",50,1},{"superiorMedicine",75,1},{"food",7,5},{"clothing",15,7},{"wood",5,15},{"iron",7,30} };
+    //item name, item price, item weight
     
     public void shop() {
 	int cost = 0;
@@ -159,8 +159,9 @@ public class Woo{
 			       "\t4: Ultra Medicine (+75 Health): $50 each\n" +
 			       "\t5: Superior Medicine (+100 Health) : $75 each\n" +
 			       "\t6: Food : $7 each\n" +
-			       "\t7: Heavy jacket: $15 each\n" +
-			       "\t8: Wagon fixing items: $7 each\n"  
+			       "\t7: Heavy jacket : $15 each\n" +
+			       "\t8: Wood : $5 each\n" + 
+			       "\t9: Iron : $7 each\n"
 			       );
 	    System.out.println("\n Selection: ");
 
@@ -169,13 +170,13 @@ public class Woo{
 
 	    System.out.println("How many?");
 	    selection2 = Keyboard.readInt();
-	    cost = (int)(shopItems[selection-1][1]) * selection2;
+	    cost = (int)(Items[selection-1][1]) * selection2;
 	    System.out.println("Estimated Cost: " + cost);
 	    if (pat.money > cost) {
 		System.out.println("Remaining money: " + (pat.money - cost));
 		pat.money -= cost;
 		for (int i = selection2; i > 0; i--) {
-		    addItem((shopItems[selection-1][0]).toString());
+		    addItem((Items[selection-1][0]).toString());
 		}
 	    }
 	    else {
@@ -216,10 +217,12 @@ public class Woo{
 	    if (numAlive != 5) {
 		if (! child1.isAlive()) {
 		    System.out.println(child1.name + " is dead!");
+		    System.out.println("You bury " + child1.name + "...");
 		}
 
 		if (! child2.isAlive()) {
 		    System.out.println(child2.name + " is dead!");
+		    System.out.println("You bury " + child2.name + "...");
 		}
 
 
@@ -229,15 +232,17 @@ public class Woo{
 
 		if (! child3.isAlive()) {
 		    System.out.println(child3.name + " is dead!");
+		    System.out.println("You bury " + child3.name + "...");
 		}
 
 		if (! spouse.isAlive()) {
 		    System.out.println(spouse.name + " is dead!");
+		    System.out.println("You bury " + spouse.name + "...");
 		}
 	    }
     
 		
-	    
+	    updateWeight();
 	    setWeather();
 	    System.out.println(months[month] + " " + (days+1) + ", 1849");
 	    System.out.println("Current Weather: " + weather);
@@ -484,7 +489,7 @@ public class Woo{
 	
 	int probabilityEvent = (int)(Math.random() * 100);
 	
-	if (probabilityEvent != 0 && (daysTraveled > 0)) {
+	if (probabilityEvent != 0 && (days > 0)) {
 		
 	    if (probabilityEvent < 55 && weather == "rainy") {
 		System.out.println("There is a thunderstorm!" + "\n" + "Your pace has been reduced to 1, you've lost 2 food items, and all members' health has been reduced by 5.");
@@ -609,6 +614,20 @@ public class Woo{
 	System.out.println(retStr);
     }
 
+    public void updateWeight() {
+	weight = 0;
+	if (pat.isAlive()) {weight += 130;}
+	if (spouse.isAlive()) {weight += 130;}
+	if (child1.isAlive()) {weight += 120;}
+	if (child2.isAlive()) {weight += 100;}
+	if (child3.isAlive()) {weight += 80;}
+	for (Object item : inventory){
+	    //weight += item;
+	    //NEEDS to find weight in the Items double array.... needs to use the string item to look up the weight
+	    weight += 1;
+	}
+    }
+
     public void eat() {
 		for (int x = 0 ; x < numAlive ; x += 1) {
 		    if (haveItem("food")) {
@@ -673,7 +692,6 @@ public class Woo{
 	    System.out.println("Your inventory is full.");
 	    isInventoryFull = true; 
 	}
-	
     }
 
     public void removeItem(String item) {

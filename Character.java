@@ -7,6 +7,7 @@ public class Character{
     String name;
 
     boolean hasDisease = false;
+    boolean onWagon = true;
     String disease; 
 
     public Character(int setHealth) {
