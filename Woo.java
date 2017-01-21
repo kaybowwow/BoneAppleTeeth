@@ -12,6 +12,8 @@ public class Woo{
     private Member child3;
     
     private ArrayList<String> inventory = new ArrayList<String>();
+	private Object[][] items = { {"oxen",40,0},{"standardMedicine",15,1},{"goodMedicine",25,1},{"ultraMedicine",50,1},{"superiorMedicine",75,1},{"food",7,5},{"clothing",15,7},{"wood",5,15}};
+    //item name, item price, item weight
     private int weight = 0;
     private int carrying = 0;
 
@@ -38,6 +40,7 @@ public class Woo{
 	String s;
 	String name = "";
 	int selection; 
+	int selection3;
 
 	s= "Welcome to the Oregon Trail! By what name do you go by?";
 	System.out.println(s);
@@ -69,7 +72,7 @@ public class Woo{
 	    }
 
 	    if (selection == 2) {
-		addItem("wagonFixer");
+		addItem("wood");
 		pat = new Carpenter(name);	
 	    }
 
@@ -138,9 +141,6 @@ public class Woo{
 	}
 	catch (Exception e) {}
     }
-
-    private Object[][] Items = { {"oxen",40,0},{"standardMedicine",15,1},{"goodMedicine",25,1},{"ultraMedicine",50,1},{"superiorMedicine",75,1},{"food",7,5},{"clothing",15,7},{"wood",5,15},{"iron",7,30} };
-    //item name, item price, item weight
     
     public void shop() {
 	int cost = 0;
@@ -160,8 +160,7 @@ public class Woo{
 			       "\t5: Superior Medicine (+100 Health) : $75 each\n" +
 			       "\t6: Food : $7 each\n" +
 			       "\t7: Heavy jacket : $15 each\n" +
-			       "\t8: Wood : $5 each\n" + 
-			       "\t9: Iron : $7 each\n"
+			       "\t8: Wood : $5 each\n"
 			       );
 	    System.out.println("\n Selection: ");
 
@@ -170,13 +169,13 @@ public class Woo{
 
 	    System.out.println("How many?");
 	    selection2 = Keyboard.readInt();
-	    cost = (int)(Items[selection-1][1]) * selection2;
+	    cost = (int)(items[selection-1][1]) * selection2;
 	    System.out.println("Estimated Cost: " + cost);
 	    if (pat.money > cost) {
 		System.out.println("Remaining money: " + (pat.money - cost));
 		pat.money -= cost;
 		for (int i = selection2; i > 0; i--) {
-		    addItem((Items[selection-1][0]).toString());
+		    addItem((items[selection-1][0]).toString());
 		}
 	    }
 	    else {
@@ -207,6 +206,7 @@ public class Woo{
     public boolean playTurn() {
 	int selection = 1;
 	int selection2 = 1; 
+	int selection3 = 1;
 
 	if (pat.isAlive()) {
 	    numAlive = 1;
@@ -223,12 +223,7 @@ public class Woo{
 		if (! child2.isAlive()) {
 		    System.out.println(child2.name + " is dead!");
 		    System.out.println("You bury " + child2.name + "...");
-		}
-
-
-		//pace depends on the number of oxen in the inventory
-		pat.pace = 1.0 + (0.1 * countItem("oxen"));
-		   
+		}		   
 
 		if (! child3.isAlive()) {
 		    System.out.println(child3.name + " is dead!");
@@ -248,6 +243,20 @@ public class Woo{
 	    System.out.println("Current Weather: " + weather);
 	    System.out.println("Days traveled: " + days);
 	    System.out.println("Miles Traveled: " + milesTraveled);
+		
+		//pace depends on the number of oxen in the inventory
+		pat.pace = 1 + (.4 * countItem("oxen"));
+		if (countItem("oxen") == 0){pat.health -= 10; spouse.health -= 10; child1.health -= 10; child2.health -= 10; child3.health -= 10;}
+		//carrying stuff on ur own back is hard work
+		//pace also depends on weight
+		pat.pace -= (weight * .002);
+		//pace also depends on weather
+		if (weather.equals("cold")){pat.pace *=.9;}
+		if (weather.equals("rainy")){pat.pace*=.8;}
+		if (weather.equals("warm")){pat.pace*=1.1;}
+		if (weather.equals("dry")){pat.pace*=1.1;}
+		if (weather.equals("windy")){pat.pace*=.9;}
+		if (pace < .1){pace = .1}
 	    
 	    int probabilityOccuring = (int)(Math.random() * 100); 
 
@@ -321,11 +330,14 @@ public class Woo{
 		}
 
 		if (selection == 6) {
-		    System.out.println("Here is your current inventory:" + "\n");
-		    printInventory(); 
-		    System.out.println("What would you like to use?");
-		    System.out.println("\t1: Medicine\n" +
-				       "\t2: Wagon Fixing Stuff");
+		    System.out.println("Here is your current inventory:");
+			printInventory(); 
+			System.out.println("It weighs " + weight + ".\n");
+		    System.out.println("What would you like to do?");
+		    System.out.println("\t1: Use medicine\n" +
+				       "\t2: Use wood\n" +
+					   "\t3: Throw something out\n" + 
+					   "\t4: Cool");
 		    
 		    selection2 = Keyboard.readInt();
 
@@ -350,21 +362,21 @@ public class Woo{
 
 			selection2 = Keyboard.readInt();
 
-			if (selection2 == 1) {
+			if (selection2 == 1 && pat.isAlive()) {
 			    member = pat;
 			}
 
-			if (selection2 == 2) {
+			if (selection2 == 2 && spouse.isAlive()) {
 			    member = child1;
 			}
-			if (selection2 == 3) {
+			if (selection2 == 3 && child1.isAlive()) {
 			    member = child2;
 			}
-			if (selection2 == 4) {
+			if (selection2 == 4 && child2.isAlive()) {
 			    member = child3;
 			}
 
-			if (selection2 == 5) {
+			if (selection2 == 5 && child3.isAlive()) {
 			    member = spouse;
 			}
 			
@@ -380,6 +392,7 @@ public class Woo{
 			    if (haveItem("standardMedicine")) {
 				member.health += 15;
 				member.hasDisease = false;
+				removeItem("standardMedicine");
 			    }
 			    else {
 				System.out.println("You don't have that item!");
@@ -391,6 +404,7 @@ public class Woo{
 			    if (haveItem("goodMedicine")) {
 				member.health += 25;
 				member.hasDisease = false;
+				removeItem("goodMedicine");
 			    }
 			    else {
 				System.out.println("You don't have that item!");
@@ -401,6 +415,7 @@ public class Woo{
 			    if (haveItem("ultraMedicine")) {
 				member.health += 75;
 				member.hasDisease = false;
+				removeItem("ultraMedicine");
 			    }
 			    else {
 				System.out.println("You don't have that item!");
@@ -411,26 +426,61 @@ public class Woo{
 			    if (haveItem("superiorMedicine")) {
 				member.health += 100;
 				member.hasDisease = false; 
+				removeItem("ultraMedicine");
 			    }
 			    else {
 				System.out.println("You don't have that item!");
 			    }
 			}
-
+			selection2 = 1;
 		
 		    }
 
 		    if (selection2 == 2) {
-			if (haveItem("wagonFixer")) {
-			    if (event.equals("BrokenWheel")) {
-				event = "none";
-				pat.pace = 2;
-			    }
-			    else {
-				System.out.println("There's nothing to fix!");
-			    }
-			}
+				if (haveItem("wood")) {
+					if (event.equals("BrokenWheel")) {
+					event = "none";
+					pat.pace = 2;
+					removeItem("wood");
+					
+					}
+					else {
+					System.out.println("There's nothing to fix!");
+					}
+				}
 		    }
+			
+			if (selection2 == 3) {
+				System.out.println("What would you like to throw out?");
+				System.out.println("\t1: Standard medicine\n" +
+					"\t2: Good medicine\n" +
+					"\t3: Ultra medicine\n" +
+					"\t4: Superior medicine\n" +
+					"\t5: Food \n" +
+					"\t6: Clothing\n" +
+					"\t7: Wood\n" +
+					"\t8: Your spouse\n" +
+					"\t9: A child\n");
+				selection2 = Keyboard.readInt();
+				if (selection2 < 8){
+					System.out.println("How many?");
+					selection3 = Keyboard.readInt();
+				}
+				if (selection2 == 1){for (int i = 0; i < selection3; i++){removeItem("standardMedicine");}}
+				if (selection2 == 2){for (int i = 0; i < selection3; i++){removeItem("goodMedicine");}}
+				if (selection2 == 3){for (int i = 0; i < selection3; i++){removeItem("ultraMedicine");}}
+				if (selection2 == 4){for (int i = 0; i < selection3; i++){removeItem("superiorMedicine");}}
+				if (selection2 == 5){for (int i = 0; i < selection3; i++){removeItem("food");}}
+				if (selection2 == 6){for (int i = 0; i < selection3; i++){removeItem("clothing");}}
+				if (selection2 == 7){for (int i = 0; i < selection3; i++){removeItem("wood");}}
+				if (selection2 == 8){System.out.println("You're cruel..."); spouse.health -= 100;}
+				if (selection2 == 9){System.out.println("You're cruel..."); 
+					if (child1.isAlive()) {child1.health -= 100;}
+					else if (child2.isAlive()) {child2.health -= 100;}
+					else if (child3.isAlive()) {child3.health -= 100;}
+				}
+				
+			}
 		}		
 		
 	    
@@ -454,11 +504,11 @@ public class Woo{
 	    
     public boolean rest(){
 	days += 1;
-	pat.health += 20;
-	spouse.health += 20;
-	child1.health += 20;
-	child2.health += 20;
-	child3.health += 20;
+	if(pat.isAlive()){pat.health += 10;}
+	if(spouse.isAlive()){spouse.health += 10;}
+	if(child1.isAlive()){child1.health += 10;}
+	if(child2.isAlive()){child2.health += 10;}
+	if(child3.isAlive()){child3.health += 10;}
 	return true;
     }
     
@@ -622,9 +672,12 @@ public class Woo{
 	if (child2.isAlive()) {weight += 100;}
 	if (child3.isAlive()) {weight += 80;}
 	for (Object item : inventory){
-	    //weight += item;
-	    //NEEDS to find weight in the Items double array.... needs to use the string item to look up the weight
-	    weight += 1;
+	    int weightitem = 0;
+		for (Object[] itemdata : items){
+			if (item.equals(itemdata[0])){
+				weight += (Integer)itemdata[2];
+			}
+		}
 	}
     }
 
