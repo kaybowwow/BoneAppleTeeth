@@ -59,16 +59,8 @@ Modified Character and Woo
 3. Created and implemented a rest() method
 4. Modified Woo to end the game when the user's milesTraveled equals to the maxMiles.
 
-2017-01-13
---------------------------------------------------------------
-Queenie ::
-Kevin ::
-Andrew ::
-
 2017-01-14
 --------------------------------------------------------------
-Queenie ::
-
 Kevin ::
 Modified Woo, Character, and Player classes and subclasses
 1. Created an about() method that returns a string of the stats of a Player
@@ -76,8 +68,6 @@ Modified Woo, Character, and Player classes and subclasses
 3. Moved inventory from Player class to Woo class
 4. Modified Woo so that family members can be added.
 5. Modified Woo so that characters can have spaces in their names.
-
-Andrew ::
 
 2017-01-15
 --------------------------------------------------------------
@@ -90,24 +80,11 @@ Modified Woo and Character classes
 5. Edited the information the shop displays overtime the player makes a purchase (shows how much will be deducted and how much the user will have remaining).
 6. Edited the options the user can make at the start of every new round. 
 
-Kevin ::
-
-Andrew ::
-
-2017-01-16
---------------------------------------------------------------
-Queenie ::
-Kevin ::
-Andrew ::
-
 2017-01-17
 --------------------------------------------------------------
-Queenie ::
 Kevin ::
 Modified README.md
 1. Updated README.md file to display a brief project description and launch instructions.
-
-Andrew ::
 
 2017-01-18
 --------------------------------------------------------------
@@ -130,12 +107,8 @@ Modified Woo.java
 2. Modified addItem(item) method to add items AND sort the inventory at the same time.
 3. Modified "eating" algorithm so that each starving member loses health individually instead of the whole family losing health simultaneously.
 
-Andrew ::
-
 2017-01-19
 --------------------------------------------------------------
-Queenie ::
-Kevin ::
 Andrew ::
 1. began working on weight mechanic (too much weight, move slow)
 2. began working on applying medicine/wood
@@ -145,12 +118,26 @@ Andrew ::
 --------------------------------------------------------------
 Queenie ::
 Kevin ::
+Modified Woo.java
+1. Implemented days and months system
+2. Added a way to print a death message upon the death of a family member.
+3. Modified shop() algorithm to make it more universal
+4. Modified rest() to increase characters' health
+5. Added unfunctional landmarks
 Andrew ::
 
 2017-01-21
 --------------------------------------------------------------
 Queenie ::
+
 Kevin ::
+Modified Woo.java
+1. Implemented landmarks (cities, towns, rivers)
+2. Implemented checkpoints (held the names and locations of landmarks).
+3. Modified "Check Location" action in playTurn() to print the distance the player is from the next checkpoint.
+4. Implemented crossRiver() which allowed the user to ford the river, float across the river, or pay for a ferry to sail across the river.
+5. Modified "Continue" action in playTurn() so that the user stops at a checkpoint when the user reaches/passes the location of a checkpoint.
+
 Andrew ::
 
 2017-01-22
@@ -158,8 +145,19 @@ Andrew ::
 Queenie ::
 1. Added new variable called temperature which will affect the weather, the pace, and the health of members 
 2. Did some editing on the formatting of the printed statements 
-3. Added code to allow the user to pick the month of when to start 
+3. Added code to allow the user to pick the month of when to start
+
 Kevin ::
+Modified Woo.java
+1. Modified playTurn() so that the user can only "Cross the River!" at a river and "Visit the shop" at a Town or a City.
+2. Implemented method printSlowly() to print a String one character at a time. 
+3. Made some design changes in the UI. (used printSlowly() alot)
+4. Added the possibility to find random amounts of money.
+5. Added an introduction to the game to introduce the atmosphere. (used printSlowly)
+6. Added comments for some of the methods in Woo.java.
+Modified Character and Player files
+1. Removed unnecessary methods
+
 Andrew ::
 
 
@@ -176,26 +174,36 @@ Flesh out each category whenever necessary, appropriate.
 ------------------------------------------
 OBSTACLES OVERCOME
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-wow we so BOSS bc... 
+1. We were very confused as to how to implement an array of Characters containing all of the Characters. Once we figured this out, it saved us a lot of time. 
+
+2. In the past, the Characters would still be alive with 0 Health, but now they die when they're at 0 Health.
 
 UNRESOLVED ISSUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-blah blah pesky bug...
-maybe some of these will move into the Obs.Ovrcm section...
+1. We didn't implement an ammunition system because with the current inventory system, ammunition will fill up the inventory pretty quickly, and not provide room to have other items in the inventory. We would have to re-write the current inventory system to accomodate for ammunition.
 
 COOL STUFF LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-wow! oo!...
+1. How to print a string one character at a time using "Thread.sleep(x)"
+   - this made the progression of the game easier to follow because now, some
+     things will print slowly instead of everything printing all at once.
+   - it also adds some suspense when crossing the river when doing
+     printSlowly(". . . " , 100)
 
 MID-DEVELOPMENT DESIGN CHANGES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-we changed ___ to ___ bc...
+1. We decided to implement an array of Character that contains the Player and all the Members of the family because this allowed us to use a for-loop when we needed to perform something on every Character. This saved us alot of time and space.
+
+2. We decided to implement a 2-d array called items that contained the properties of each item (price , weight) the user can buy from the shop because it was important to keep the attributes of the items in one place.
+
+3. We originally had the Arraylist of integers in Player.java, but decided to move it into Woo.java because the inventory interacts with many things, not just the Player.
+
+4. We originally planned to have the user hunt by quickly typing a word, like in the original version of Oregon Trail, but decided to use what we already have and just made hunting a number-guessing game because it was difficult to find how to implement the original method for hunting.
 
 LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tales of wisdom gained...
-||||||||||||||||||||||||||||||||||||||||||
-someBODY once told me
+
+1. It's always better to print something when testing a certain method/functionality. If done in a loop, we can see how many times the method loops/or if it's looping correctly.
 
 
  ______   ______   __   __   __       ______   _______     
