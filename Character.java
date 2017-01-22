@@ -5,6 +5,7 @@ public class Character{
     protected int health; 
 	int maxhealth = 100;
 	boolean alive;
+	boolean buried;
     //int lastOccupiedInvSlot = 0;
     String name;
 
@@ -15,6 +16,7 @@ public class Character{
     public Character() {
 	health = maxhealth;
 	alive = true;
+	buried = false;
     }
     public String getName() {
 	return name;

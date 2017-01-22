@@ -104,6 +104,7 @@ public class Woo{
 	s += "Selection: ";
 	System.out.print (s);
 
+	//give them a starting item based on occupation
 	try {
 	    selection = Keyboard.readInt();
 	    if (selection == 1) {inventory.add("food"); pat = new Farmer(name);}
@@ -130,6 +131,7 @@ public class Woo{
 		System.out.print (s);
 	    }
 	    
+		//instantiate members
 	    try {
 		name = Keyboard.readString();
 		if (membersLeft == 4) {
@@ -283,14 +285,14 @@ public class Woo{
 	    selection2 = Keyboard.readInt();
 	    cost = (int)(items[selection-1][1]) * selection2;
 	    System.out.println("Estimated Cost: " + cost);
-	    if (pat.money > cost) {
+	    if (pat.money >= cost) {
 		System.out.println("Remaining money: " + (pat.money - cost));
 		//pat.money -= cost;
 		for (int i = selection2; i > 0; i--) {
-		    if((addItem((items[selection-1][0]).toString())));{
+		    if(addItem((items[selection-1][0]).toString())){
 			pat.money -= (int)items[selection-1][1]; 
 			//if ((weight is too big) or (inventory is full)) and addItem fails, don't spend money
-			//this doesn't work
+			//this works now
 		    }
 		}
 	    }
@@ -326,9 +328,10 @@ public class Woo{
 	    for (Character bro : fam){if(bro.alive){numAlive++;}}
 	    if (numAlive != 5) {
 		for (Character bro : fam){
-		    if (!bro.alive){
+		    if (!bro.alive && !bro.buried){
 			System.out.println(bro.name + " is dead!");
 			System.out.println("You bury " + bro.name + "...");
+			bro.buried = true;
 		    }
 		}
 	    }
@@ -365,7 +368,7 @@ public class Woo{
 
 	    int probabilityOccuring = (int)(Math.random() * 100); 
 
-	    if (probabilityOccuring < 50) {
+	    if (probabilityOccuring < 30) {
 		randomEvent();
 	    }
 
@@ -409,6 +412,7 @@ public class Woo{
 		if (selection == 2) {
 		    days++;
 		    System.out.println("You feel rested. Health has been increased, and a day has passed.");
+			eat();
 		    rest();
 		}
 
@@ -433,7 +437,8 @@ public class Woo{
 		    System.out.println("What would you like to do?");
 		    System.out.println("\t1: Use medicine\n" +
 				       "\t2: Use wood\n" +
-				       "\t3: Throw something out");
+				       "\t3: Throw something out" + 
+					   "\t4: Nothing");
 				
 		    selection2 = Keyboard.readInt();
 
@@ -578,11 +583,13 @@ public class Woo{
 	Character member; 
 	member = fam[prob];
 	
-	int probabilityEvent = (int)(Math.random() * 100);
+	int probabilityEvent = (int)(Math.random() * 50);
+	System.out.print(probabilityEvent);
+	System.out.println("!!!!!!!!!!!!!!!!!");
 	
 	if (probabilityEvent != 0 && (days > 0)) {
 		
-	    if (probabilityEvent < 55 && weather == "rainy") {
+	    if (probabilityEvent < 5 && weather == "rainy") {
 		System.out.println("There is a thunderstorm!" + "\n" + "Your pace has been reduced to 1, you've lost 2 food items, and all members' health has been reduced by 5.");
 		event = "Thunderstorm";
 		pat.pace = 1;
@@ -593,7 +600,7 @@ public class Woo{
 		}
 	    }
 
-	    else if (probabilityEvent < 45) {
+	    else if (probabilityEvent < 10) {
 		event = "dysentery"; 
 		System.out.println( member.name + " has dysentery! " + "\n" + member.name + "'s health has been reduced by 30. " + member.name + "'s health will keep reducing by 10 until medicine is received." ); 
 		member.addHealth(-30);
@@ -601,7 +608,7 @@ public class Woo{
 		member.disease = "Dysentery";
 	    }
 
-	    else if (probabilityEvent < 40) {
+	    else if (probabilityEvent < 15) {
 		event = "cholera"; 
 		System.out.println( member.name + " has cholera!" + "\n" + member.name + "'s health has been reduced by 30. " + member.name + "'s health will keep reducing by 10 until medicine is received." );
 		member.addHealth(-30);
@@ -609,20 +616,20 @@ public class Woo{
 		member.disease = "Cholera";
 	    }
 
-	    else if (probabilityEvent < 37) {
+	    else if (probabilityEvent < 22) {
 		System.out.println("One of your wagon wheels broke." + "\n" + " You are trapped in your current location for 2 days and your pace has been reduced to 1. It will stay as 1 until you fix it."); 
 		event = "BrokenWheel";
 		pat.pace = 1;
 		days += 2; 
 	    }
 
-	    else if (probabilityEvent < 30) {
+	    else if (probabilityEvent < 27) {
 		System.out.println("One of your oxen has died."); 
 		event = "OxenDeath";
 		removeItem("oxen"); 
 	    }
 
-	    else if (probabilityEvent < 25) {
+	    else if (probabilityEvent < 31) {
 		System.out.println("There is an earthquake!" + "\n" + "Your pace has been reduced to 1, your health has been decreased by 7, and your food supplies have been reduced by 3.");
 		event = "Earthquake";
 		pat.pace = 1;
@@ -637,7 +644,7 @@ public class Woo{
 		}   
 	    }
 
-	    else if (probabilityEvent < 20) {
+	    else if (probabilityEvent < 34) {
 		System.out.println( member.name + " has Typhoid Fever! " + "\n" + member.name + "'s health has been reduced by 50. " + member.name + "'s health will keep reducing by 10 until medicine is received." );
 		event = "TyphoidFever";
 		member.hasDisease = true;
@@ -645,21 +652,32 @@ public class Woo{
 		member.addHealth(-50); 
 	    }
 
-	    else if (probabilityEvent < 10) {
+	    else if (probabilityEvent < 39) {
 		event = "EagleSnatch"; 
 	        System.out.println (member.name + " got snatched away by an eagle!" + "\n" + member.name + " has died."); 
 		member.addHealth(-100);
 	    }
-	    else if (probabilityEvent < 80) {
+	    else if (probabilityEvent < 45) {
 		int moneyFound = (int)((Math.random()*100)+40);;
 		pat.money += moneyFound;
 		System.out.println(pat.name + " found $" + moneyFound + "!!!");
 	    }
-	    else if (probabilityEvent < 5) {
+	    else if (probabilityEvent < 46) {
 		int moneyFound = (int)((Math.random()*1000)+500);;
 		pat.money += moneyFound;
 		System.out.println("J A C K P O T !! " + pat.name + " found $" + moneyFound + "!!!");
 	    }
+		else if (probabilityEvent < 48) {
+			int foodFound = (int)((Math.random() * 10) + 1);
+			System.out.println(pat.name + " found " + foodFound + " food!!!");
+			for (int i = 0; i < foodFound; i++){addItem("food");}
+		}
+		else if (probabilityEvent < 50) {
+			int foodFound = (int)((Math.random() * 10) + 1);
+			System.out.println(pat.name + " found " + foodFound + " wood!!!");
+			for (int i = 0; i < foodFound; i++){addItem("wood");}
+		}
+		event = "none";
 		
 	}
 
@@ -672,7 +690,7 @@ public class Woo{
 
     public double setTemperature() {
 	if (month == 12 || month < 4) {
-	    temperature = (Math.random() * 10);
+	    temperature = (Math.random() * 10 + 10);
 	}
 
 	if (month >= 4 && month < 6) {
@@ -852,6 +870,12 @@ public class Woo{
 
     //==========h e l p e r   f u n c t i o n s==========
 		
+    /*=====================================
+      int getFirstIndexOf -- finds where an item is in the inventory
+      pre: String item is the name of an item
+      post: Returns the index of the first occurence of item
+      Returns -1 if item isn't in the inventory
+      =====================================*/
     public int getFirstIndexOf (String item) {
 	if (haveItem(item)) {
 	    for (int x = 0 ; x < inventory.size() ; x += 1) {
@@ -863,6 +887,13 @@ public class Woo{
 	return -1;
     }
 
+    /*=====================================
+      boolean addItem -- put an item in your wagon
+      pre: String item is the name of an item
+      post: Returns true if item is successfully added 
+      Returns false if inventory is full or is too heavy
+      Also updates the weight of the inventory
+      =====================================*/
     public boolean addItem (String item) {
         if (inventory.size() < 50) {
 	    if (haveItem(item)) {
@@ -880,18 +911,29 @@ public class Woo{
 	    return true;
 	}
 	else {
-	    if(!isInventoryFull){System.out.println("Your inventory is full. You can only hold 30 items.");}
+	    if(!isInventoryFull){System.out.println("Your inventory is full. You can only hold 50 items.");}
 	    isInventoryFull = true; 
 	}
 	return false;
     }
 
+    /*====================================
+      void removeItem -- removes an item from the inventory
+      pre: String item is the name of an item
+      post: removes item from the inventory if its in the inventory
+      ====================================*/
     public void removeItem(String item) {
 	if (haveItem(item)) {
 	    inventory.remove(getFirstIndexOf(item));
 	}
     }
 
+    /*====================================
+      boolean haveItem -- looks for an item in the inventory
+      pre: String item is the name of an item
+      post: Returns true if item is in inventory
+      Returns false if items is not in inventory
+      ====================================*/
     public boolean haveItem (String item) {
 	for (int x = 0 ; x < inventory.size() ; x += 1) {
 	    if (inventory.get(x).equals(item)) {
@@ -900,7 +942,11 @@ public class Woo{
 	}
 	return false;
     }
-
+    /*====================================
+      int countItem -- counts the number of items in the inventory
+      pre: String item is the name of an item
+      post: Returns the number of items there are in the inventory
+      ====================================*/
     public int countItem (String item) {
 	int quantity = 0;
 	if (haveItem(item)) {
@@ -912,7 +958,14 @@ public class Woo{
 	}
 	return quantity;
     }
-	
+
+    /*=====================================
+      void applyMedicine -- removes disease and adds health to a character
+      pre: selection2 is user input , Character has been initialized
+      post: according to user input for type of medicine and Character, health 
+      will be added to and disease will be removed from the character.
+      Prints error message if the medicine is not in the inventory.
+      =====================================*/
     private void applyMedicine(int selection2, Character member){
 	if (selection2 == 1) {
 	    if (haveItem("standardMedicine")) {
@@ -956,6 +1009,13 @@ public class Woo{
 	    }
 	}
     }
+    /*============================================
+      void updateNextCheckpoint -- updates the location and name of the next 
+      landmark to reach
+      pre: 
+      post: according to player's location, updates location and name of the 
+      next city/town/river to reach.
+      ============================================*/
         public void updateNextCheckpoint() {
 	for (int x = 0 ; x < landmarks.length - 1 ; x += 1) {
 	    if (milesTraveled >= nextCheckpointMiles) {
@@ -965,6 +1025,13 @@ public class Woo{
 	}
 	}
 
+    /*============================================
+      void printSlowly -- prints a string one character at a time
+      pre: String str - the string printed, int waitTime controls the speed of
+      the print
+      post: prints str one character at a time with waitTime milliseconds
+      of waiting in between characters
+      ============================================*/
     public static void printSlowly (String str , int waitTime) {
 	    try {
 		for (int x = 0 ; x < str.length() ; x += 1) {
@@ -993,6 +1060,6 @@ public class Woo{
 		break;
 	    System.out.println();
 	}
-        printSlowly("Your game is over." , 100);
+        printSlowly("You have died. Your game is over." , 100);
     }
 }
