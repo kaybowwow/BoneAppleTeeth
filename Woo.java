@@ -53,6 +53,33 @@ public class Woo{
 
 	String openMsg = "\n\n\t\t\tWelcome to the Oregon Trail!\n\n";
 	printSlowly(openMsg , 100);
+	openMsg = "The year is 1849. You and your family just heard about the discovery of gold on the West Coast in California and Oregon. You decide to go to Oregon via the Oregon Trail. However, you should know that during your journey on the Oregon Trail, many unfortunate events can befall your family. Your goal is to make it to Oregon with as many members of your family and with as much money as possible!";
+	printSlowly(openMsg , 25);
+	openMsg = "\nAre you ready to make riches?";
+	printSlowly(openMsg , 75);
+	
+	System.out.println("\n\n\t1: Yes, let's go already!\n\t2: No, I'm scared!");
+	try {
+	    selection = Keyboard.readInt();
+	}
+	catch (Exception e) {
+	    selection = 2;
+	}
+	if (selection == 2) {
+	    s = "Important things you should know:\n";
+	    printSlowly(s , 35);
+	    s = "\n1. Everything in your wagon adds to its weight, including your family.";
+	    s += "\n2. More weight means slower pace.";
+	    s += "\n3. The temperature and weather can affect your pace.";
+	    s += "\n4. You family may die in many different ways . . .";
+	    s += "\n5. They can die instantly by drowning, or die slowly by disease.";
+	    s += "\n6. Buy food and medicine!! They might be useful . . .";
+	    s += "\n7. If you're lucky, you may find money that once belonged to 49'ers like you . . . who didn't make it to the West Coast. . .";
+	    System.out.println(s);
+	}
+
+	System.out.print("\nCreating character");
+	printSlowly(". . . \n\n" , 100);
 	s = "By what name do you go by?  ";
 	printSlowly(s , 25);
 
