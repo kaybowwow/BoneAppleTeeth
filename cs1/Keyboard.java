@@ -160,8 +160,8 @@ public class Keyboard
       }
       catch (Exception exception) 
       {
-         error ("Error reading String data, null value returned.");
-         str = null;
+	  str = "Bob";
+	  error ("Unexpected input. Default name, Bob, will be used.");
       }
       return str;
    }
@@ -251,8 +251,8 @@ public class Keyboard
       } 
       catch (Exception exception) 
       {
-         error ("Error reading int data, MIN_VALUE value returned.");
-         value = Integer.MIN_VALUE;
+         error ("Error reading int data, the number 1 choice is automatically selected");
+         value = 1;
       }
       return value;
    }

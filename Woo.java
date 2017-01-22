@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Woo{
     //====================V A R I A B L E S====================
-    public final static int maxMiles = 750;
+    public final static int maxMiles = 500;
     
     private Player pat;
     private Member spouse;
@@ -24,7 +24,8 @@ public class Woo{
     
     private String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
     private int month;
-    private Object[][] landmarks = { {"Apple Town",0},{"Bone Town",150},{"Mykolyk River",300},{"Ursula City",450},{"Yekateri River",600},{"Oregon City",750} };
+    private Object[][] landmarks = { {"Apple Town",0},{"Bone Town",65},{"Mykolyk River",115},{"Ursula City",175},{"Yekateri River",250},{"Oregon City",500} };
+
     private String currentLandmark = (String)landmarks[1][0];
     private String nextCheckpoint = (String)landmarks[1][0];
     private int nextCheckpointMiles = (int)landmarks[1][1];    
@@ -65,7 +66,7 @@ public class Woo{
 	catch (Exception e) {
 	    selection = 2;
 	}
-	if (selection == 2) {
+	if (selection == 2 || selection == 1) {
 	    s = "Important things you should know:\n";
 	    printSlowly(s , 35);
 	    s = "\n1. Everything in your wagon adds to its weight, including your family.";
@@ -90,7 +91,6 @@ public class Woo{
 
         catch ( Exception e ) {
 	    name = "Bob";
-	    System.out.println("Unexpected input received. Default settings are used: your name is Bob."); 
 	}
 	
 	s = "\nWhat is your occupation? \n";
@@ -111,8 +111,9 @@ public class Woo{
 	    if (selection == 3) {inventory.add("clothing"); pat = new Banker(name);}
 	    if (selection == 4) {pat = new Immigrant(name);}   
 	}
-	catch (Exception e) {addItem("food"); pat = new Farmer(name);
-	    System.out.println("Unexpected input received. Default settings are used: you are a farmer."); 
+	catch (Exception e) {
+	    addItem("food");
+	    pat = new Farmer(name); 
 	}
 
 	s = "\nWhat are your family members' names?\n";
@@ -142,8 +143,7 @@ public class Woo{
 	    }
 
 	    catch ( Exception e ) {
-		name = "Bobette" + (4 - membersLeft);
-		System.out.println("Unexpected input received. Default settings are used: his/her name is Bobette."); 
+		name = "Bobette" + (4 - membersLeft);  
 	    }
 	    membersLeft -= 1;
 	}
@@ -257,9 +257,9 @@ public class Woo{
 	int selection;
 	int selection2 = 0;
 	String item = "";
-	String continueShopping = "yes"; 
+	int continueShopping = 1; 
 	
-	while ( continueShopping.equals("yes") && (pat.money > 0) && (! isInventoryFull)) {
+	while ( continueShopping == 1 && (pat.money > 0) && (! isInventoryFull)) {
 	    s = "Welcome to the shop! Available cash: " +
 			       pat.money +
 			       "\nWhat would you like to buy?";
@@ -303,9 +303,12 @@ public class Woo{
 	    }
 	    
 	    else {
-		System.out.println("Continue shopping? Type 'yes' or 'no'");
+		System.out.println("Continue shopping?");
+		System.out.println("\t1: yes\n" +
+				   "\t2: no\n"); 
 
-		continueShopping = Keyboard.readString();
+
+		continueShopping = Keyboard.readInt();
 	    }
 	}
 	
