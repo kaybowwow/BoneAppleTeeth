@@ -23,7 +23,7 @@ public class Woo{
     private static int milesTraveled;
     
     private String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
-    private int month = 2;
+    private int month;
     private Object[][] landmarks = { {"Apple Town",0},{"Bone Town",150},{"Mykolyk River",300},{"Ursula City",450},{"Yekateri River",600},{"Oregon City",750} };
     private String currentLandmark = (String)landmarks[1][0];
     private String nextCheckpoint = (String)landmarks[1][0];
@@ -34,7 +34,9 @@ public class Woo{
 
     private String weather = "warm";
 
-    private boolean isInventoryFull = false; 
+    private boolean isInventoryFull = false;
+
+    private double temperature; 
     //^^^^^^^^^^^^^^^^^^^^V A R I A B L E S^^^^^^^^^^^^^^^^^^^^
     
     //==========i m p o r t a n t   t h i n g s==========
@@ -118,7 +120,23 @@ public class Woo{
 	fam[4] = child3;
 
 	
+	System.out.println("What month would you like to start in?");
+	System.out.println("\t1: January\n" +
+			   "\t2: February\n" +
+			   "\t3: March\n" +
+			   "\t4: April\n");
+	try {
+	    selection = Keyboard.readInt();
 
+	    for (int i = 1; i < 5; i++) {
+		if (i == selection) {
+		    month = i-1;
+		}
+	    }
+	}
+
+	catch (Exception e) {}
+		
 	System.out.println("\n Before you head on the road, would you like to buy anything?");
 	System.out.println("\n"+ "\t1: Yes" + "\t2: No");
 
@@ -273,8 +291,10 @@ public class Woo{
 		
 	    updateWeight();
 	    setWeather();
+	    setTemperature(); 
 	    System.out.println(months[month] + " " + (days+1) + ", 1849");
 	    System.out.println("Current Weather: " + weather);
+	    System.out.println("Current Temperature (in Fahrenheit): " + temperature); 
 	    System.out.println("Days traveled: " + days);
 	    System.out.println("Miles Traveled: " + milesTraveled);
 			
@@ -284,14 +304,21 @@ public class Woo{
 	    //carrying stuff on ur own back is hard work
 	    //pace also depends on weight
 	    pat.pace -= (weight * .001);
-	    //pace also depends on weather
-	    if (weather.equals("cold")){pat.pace *=.9;}
+	    //pace also depends on weather and temperature
+	    if (temperature < 20) {pat.pace *= .5;} 
+	    if (temperature < 45) {pat.pace *=.9;}
 	    if (weather.equals("rainy")){pat.pace*=.8;}
-	    if (weather.equals("warm")){pat.pace*=1.1;}
+	    if (temperature > 45) {pat.pace*=1.1;}
 	    if (weather.equals("dry")){pat.pace*=1.1;}
 	    if (weather.equals("windy")){pat.pace*=.9;}
 	    if (pat.pace < .1){pat.pace = .1;}
-			
+
+	    if (temperature < 20) {
+		for (Character bro: fam) {
+		    bro.addHealth(-4);
+		}
+	    }
+
 	    int probabilityOccuring = (int)(Math.random() * 100); 
 
 	    if (probabilityOccuring < 50) {
@@ -300,7 +327,7 @@ public class Woo{
 
 	    for (Character bro : fam){
 		if (bro.hasDisease){
-		    bro.addHealth(-10);
+		    bro.addHealth(-8);
 		}
 	    }
 
@@ -371,7 +398,7 @@ public class Woo{
 			System.out.println("\nWho would you like to apply it to?");
 			s = "";
 			for (int i = 0; i < 5; i++){
-			    s += "\t" + i + fam[i].name + "\n";
+			    s += "\t" + i + ":" + fam[i].name + "\n";
 			}
 			System.out.println(s);
 
@@ -584,17 +611,31 @@ public class Woo{
 
 	return event;
     }
-	
+
+    public double setTemperature() {
+	if (month == 12 || month < 4) {
+	    temperature = (Math.random() * 10);
+	}
+
+	if (month >= 4 && month < 6) {
+	    temperature = (Math.random() * 10 + 20);
+	}
+
+	if (month >= 6 && month < 10) {
+	    temperature = (Math.random() * 10 + 60);
+	}
+
+	if (month >= 10 && month < 12) {
+	    temperature = (Math.random() * 10 + 25);
+	}
+	return temperature; 
+    }
 
     //Sets the weather condition for the day
     //Algorithm: every __ days, ___ weather condition will occur 
     public String setWeather() {
 	if ( (days % 3) == 0) {
 	    weather = "windy";
-	}
-
-	if ( (days % 5) == 0) {
-	    weather = "cold";
 	}
 	
 	if (days % 7 == 0) {
@@ -604,11 +645,15 @@ public class Woo{
 	if ( (days % 15) == 0) {
 	    weather = "dry";
 	}
-	
-	else {
-	    weather = "warm";
+
+	if ( (temperature < 45) ) {
+	    weather = "cold";
 	}
 
+	if ( (temperature > 45) ) {
+	    weather = "warm";
+	}
+	
 	return weather; 
     }
 
