@@ -867,6 +867,12 @@ public class Woo{
 
     //==========h e l p e r   f u n c t i o n s==========
 		
+    /*=====================================
+      int getFirstIndexOf -- finds where an item is in the inventory
+      pre: String item is the name of an item
+      post: Returns the index of the first occurence of item
+      Returns -1 if item isn't in the inventory
+      =====================================*/
     public int getFirstIndexOf (String item) {
 	if (haveItem(item)) {
 	    for (int x = 0 ; x < inventory.size() ; x += 1) {
@@ -878,35 +884,53 @@ public class Woo{
 	return -1;
     }
 
+    /*=====================================
+      boolean addItem -- put an item in your wagon
+      pre: String item is the name of an item
+      post: Returns true if item is successfully added 
+      Returns false if inventory is full or is too heavy
+      Also updates the weight of the inventory
+      =====================================*/
     public boolean addItem (String item) {
-        if (inventory.size() < 50 && isInventoryFull == false) {
-			if (haveItem(item)) {
-				inventory.add(getFirstIndexOf(item) , item);
-			}
-			else {
-				inventory.add(item);
-			}
-			updateWeight();
-			if (weight > cartCapacity){
-				System.out.println("That's too heavy for your cart to carry! Your current capacity is " + cartCapacity + " pounds ");
-				removeItem(item);
-				return false;
-			}
-			return true;
-		}
-		else {
-			if(!isInventoryFull){System.out.println("Your inventory is full. You can only hold 50 items.");}
-			isInventoryFull = true; 
-		}
+        if (inventory.size() < 50) {
+	    if (haveItem(item)) {
+		inventory.add(getFirstIndexOf(item) , item);
+	    }
+	    else {
+		inventory.add(item);
+	    }
+	    updateWeight();
+	    if (weight > cartCapacity){
+		System.out.println("That's too heavy for your cart to carry! Your current capacity is " + cartCapacity + " pounds ");
+		removeItem(item);
+		return false;
+	    }
+	    return true;
+	}
+	else {
+	    if(!isInventoryFull){System.out.println("Your inventory is full. You can only hold 50 items.");}
+	    isInventoryFull = true; 
+	}
 	return false;
     }
 
+    /*====================================
+      void removeItem -- removes an item from the inventory
+      pre: String item is the name of an item
+      post: removes item from the inventory if its in the inventory
+      ====================================*/
     public void removeItem(String item) {
 	if (haveItem(item)) {
 	    inventory.remove(getFirstIndexOf(item));
 	}
     }
 
+    /*====================================
+      boolean haveItem -- looks for an item in the inventory
+      pre: String item is the name of an item
+      post: Returns true if item is in inventory
+      Returns false if items is not in inventory
+      ====================================*/
     public boolean haveItem (String item) {
 	for (int x = 0 ; x < inventory.size() ; x += 1) {
 	    if (inventory.get(x).equals(item)) {
@@ -915,7 +939,11 @@ public class Woo{
 	}
 	return false;
     }
-
+    /*====================================
+      int countItem -- counts the number of items in the inventory
+      pre: String item is the name of an item
+      post: Returns the number of items there are in the inventory
+      ====================================*/
     public int countItem (String item) {
 	int quantity = 0;
 	if (haveItem(item)) {
@@ -927,7 +955,14 @@ public class Woo{
 	}
 	return quantity;
     }
-	
+
+    /*=====================================
+      void applyMedicine -- removes disease and adds health to a character
+      pre: selection2 is user input , Character has been initialized
+      post: according to user input for type of medicine and Character, health 
+      will be added to and disease will be removed from the character.
+      Prints error message if the medicine is not in the inventory.
+      =====================================*/
     private void applyMedicine(int selection2, Character member){
 	if (selection2 == 1) {
 	    if (haveItem("standardMedicine")) {
@@ -971,6 +1006,13 @@ public class Woo{
 	    }
 	}
     }
+    /*============================================
+      void updateNextCheckpoint -- updates the location and name of the next 
+      landmark to reach
+      pre: 
+      post: according to player's location, updates location and name of the 
+      next city/town/river to reach.
+      ============================================*/
         public void updateNextCheckpoint() {
 	for (int x = 0 ; x < landmarks.length - 1 ; x += 1) {
 	    if (milesTraveled >= nextCheckpointMiles) {
@@ -980,6 +1022,13 @@ public class Woo{
 	}
 	}
 
+    /*============================================
+      void printSlowly -- prints a string one character at a time
+      pre: String str - the string printed, int waitTime controls the speed of
+      the print
+      post: prints str one character at a time with waitTime milliseconds
+      of waiting in between characters
+      ============================================*/
     public static void printSlowly (String str , int waitTime) {
 	    try {
 		for (int x = 0 ; x < str.length() ; x += 1) {
