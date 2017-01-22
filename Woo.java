@@ -36,7 +36,9 @@ public class Woo{
 
     private boolean isInventoryFull = false;
 
-    private double temperature; 
+    private double temperature;
+
+    private String s;
     //^^^^^^^^^^^^^^^^^^^^V A R I A B L E S^^^^^^^^^^^^^^^^^^^^
     
     //==========i m p o r t a n t   t h i n g s==========
@@ -45,12 +47,15 @@ public class Woo{
     }
     
     public void newGame() {
-	String s;
 	String name = "";
 	int selection; 
 	int selection3;
 
-	System.out.println("Welcome to the Oregon Trail! By what name do you go by?");
+	String openMsg = "\n\n\t\t\tWelcome to the Oregon Trail!\n\n";
+	printSlowly(openMsg , 100);
+	s = "By what name do you go by?  ";
+	printSlowly(s , 25);
+
 
 	try {
 	    name = Keyboard.readString();
@@ -61,7 +66,8 @@ public class Woo{
 	    System.out.println("Unexpected input received. Default settings are used: your name is Bob."); 
 	}
 	
-	s = "\n What is your occupation? \n";
+	s = "\nWhat is your occupation? \n";
+	printSlowly(s , 25);
 	
 	s += "\t1: Farmer\n";
 	s += "\t2: Carpenter\n";
@@ -82,7 +88,8 @@ public class Woo{
 	    System.out.println("Unexpected input received. Default settings are used: you are a farmer."); 
 	}
 
-	System.out.print("\nWhat are your family members' names?\n");
+	s = "\nWhat are your family members' names?\n";
+	printSlowly(s , 25);
 	
 	int membersLeft = 4;
 	while (membersLeft > 0) {
@@ -120,8 +127,10 @@ public class Woo{
 	fam[4] = child3;
 
 	
-	System.out.println("\nWhat month would you like to start in?");
-	System.out.println("\t1: January\n" +
+	s = "\nWhat month would you like to start in?";
+	printSlowly(s , 25);
+	
+	System.out.println("\n\t1: January\n" +
 			   "\t2: February\n" +
 			   "\t3: March\n" +
 			   "\t4: April\n");
@@ -138,7 +147,9 @@ public class Woo{
 
 	catch (Exception e) {}
 		
-	System.out.println("\n Before you head on the road, would you like to buy anything?");
+	s = "\nBefore you head on the road, would you like to buy anything?";
+	printSlowly(s , 25);
+	
 	System.out.println("\n"+ "\t1: Yes" + "\t2: No");
 
        	try {
@@ -158,8 +169,9 @@ public class Woo{
 	int selection;
 	int riverDepth = (int)(Math.random()*5) + 2;
 	int riverWidth = (int)(Math.random()*30) + 20;
-	System.out.println("The river is " + riverDepth + " feet deep and " + riverWidth + " feet wide.\n" +
-			   "What would you like to do?");
+	s = "The river is " + riverDepth + " feet deep and " + riverWidth + " feet wide.\n" +
+			   "What would you like to do?";
+	printSlowly(s , 25);
 	System.out.println("\t1: Ford the river!\n" +
 			   "\t2: Caulk your wagon and float across the river\n" +
 			   "\t3: Pay the ferryman to sail you across");
@@ -221,10 +233,12 @@ public class Woo{
 	String continueShopping = "yes"; 
 	
 	while ( continueShopping.equals("yes") && (pat.money > 0) && (! isInventoryFull)) {
-	    System.out.println("Welcome to the shop! Here is your current amount of available cash: " +
+	    s = "Welcome to the shop! Available cash: " +
 			       pat.money +
-			       "\nWhat would you like to buy?");
-	    System.out.println("\t1: Oxen: $40 each\n" +
+			       "\nWhat would you like to buy?";
+	    printSlowly(s , 40);
+	    
+	    System.out.println("\n\t1: Oxen: $40 each\n" +
 			       "\t2: Standard Medicine (+15 Health): $15 each\n" +
 			       "\t3: Good Medicine (+25 Health): $25 each\n" +
 			       "\t4: Ultra Medicine (+75 Health): $50 each\n" +
@@ -238,7 +252,7 @@ public class Woo{
 	    //try {
 	    selection = Keyboard.readInt();
 
-	    System.out.println("How many?");
+	    System.out.print("How many?  ");
 	    selection2 = Keyboard.readInt();
 	    cost = (int)(items[selection-1][1]) * selection2;
 	    System.out.println("Estimated Cost: " + cost);
@@ -276,7 +290,6 @@ public class Woo{
 	int selection = 1;
 	int selection2 = 1; 
 	int selection3 = 1;
-	String s = "";
 
 	if (pat.alive) {
 	    numAlive = 0;
@@ -334,7 +347,8 @@ public class Woo{
 
 	    boolean continuee = false;
 	    while (!continuee){    
-		System.out.println("\nWhat do you want to do?");
+		s = "\nWhat do you want to do?\n";
+		printSlowly(s , 25);
 		if ((currentLandmark.indexOf("River")!=-1)) {
 		    System.out.println("\t1: Cross the river!");}
 		else {
@@ -385,7 +399,7 @@ public class Woo{
 		if (selection == 6) {
 		    System.out.println("Here is your current inventory:");
 		    printInventory(); 
-		    System.out.println("It weighs " + weight + ".\n");
+		    System.out.println("Total weight in your wagon " + weight + ".\n");
 		    System.out.println("What would you like to do?");
 		    System.out.println("\t1: Use medicine\n" +
 				       "\t2: Use wood\n" +
@@ -514,7 +528,8 @@ public class Woo{
 	currentLandmark = "";
 	if (milesTraveled > nextCheckpointMiles) {
 	    milesTraveled = nextCheckpointMiles;
-	    System.out.println("You have arrived at " + nextCheckpoint + ".");
+	    s = "You have arrived at " + nextCheckpoint + "!";
+	    printSlowly(s , 40);
 	    currentLandmark = nextCheckpoint;
 	    updateNextCheckpoint();
 	}
@@ -662,7 +677,9 @@ public class Woo{
 	boolean isFinished = false;
 	int selection;
 
-	System.out.println("Welcome to hunting!\n\t1: Hunt!\n\t2: How to play?");
+	s = "Welcome to hunting!";
+	printSlowly(s , 25);
+	System.out.println("\n\t1: Hunt!\n\t2: How to play?");
 	try {
 	    selection = Keyboard.readInt();
 	}
@@ -692,12 +709,16 @@ public class Woo{
 		lastNumber = userNumber - 1;
 		numTries += 1;
 		System.out.println("Too high, Try again...");
+		System.out.println(pat.name + " took 2 damage.");
+		pat.addHealth(-2);
 	    }
 	    
 	    if (userNumber < number) {
 		firstNumber = userNumber + 1;
 		numTries += 1;
 		System.out.println("Too low, Try again...");
+		System.out.println(pat.name + " took 2 damage.");
+		pat.addHealth(-2);
 	    }
 
 	    if (userNumber == number) {
@@ -902,6 +923,19 @@ public class Woo{
 	}
 	}
 
+    public static void printSlowly (String str , int waitTime) {
+	    try {
+		for (int x = 0 ; x < str.length() ; x += 1) {
+		    System.out.print(str.substring(x,x+1));
+		    Thread.sleep(waitTime);
+		}
+	    }
+	    catch (Exception e) {
+		System.out.print(str);
+	    }
+	}
+    
+
 
     //^^^^^^^^^^h e l p e r f u n c t i o n s^^^^^^^^^^
 
@@ -917,6 +951,6 @@ public class Woo{
 		break;
 	    System.out.println();
 	}
-	System.out.println("Your game is over.");
+        printSlowly("Your game is over." , 100);
     }
 }
