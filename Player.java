@@ -12,10 +12,6 @@ public class Player extends Character{
 	//inventory.add(initalInv);
 	System.out.println("\n" + "Here are your initial stats: " + about());
     }
-    public double getMoney() {
-	return money;
-    }
-
     public String about() {
 	String retStr = "";
 	if (alive) {
@@ -25,7 +21,7 @@ public class Player extends Character{
 		+ "\nPace: " + Math.floor(pace * 100)/100;
 	}
 	else {
-	    retStr += "yo boy, " + name + " is dead";
+	    retStr += name + " is dead";
 	}
 	return retStr;
     }
