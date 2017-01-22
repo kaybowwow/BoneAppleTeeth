@@ -490,13 +490,14 @@ public class Woo{
 		    hunt();
 		}
 	
+		if (selection == 8) {
 		if ((currentLandmark.indexOf("Town")!=-1) || (currentLandmark.indexOf("City")!=-1)) {
-		    if (selection == 8) {
 			shop();
-		    }
+		}
 		}
 
-	    }
+	}
+    
 	    
 			
 	    //stuff done at the end of every playTurn()
@@ -619,6 +620,17 @@ public class Woo{
 	        System.out.println (member.name + " got snatched away by an eagle!" + "\n" + member.name + " has died."); 
 		member.addHealth(-100);
 	    }
+	    else if (probabilityEvent < 80) {
+		int moneyFound = (int)((Math.random()*100)+40);;
+		pat.money += moneyFound;
+		System.out.println(pat.name + " found $" + moneyFound + "!!!");
+	    }
+	    else if (probabilityEvent < 5) {
+		int moneyFound = (int)((Math.random()*1000)+500);;
+		pat.money += moneyFound;
+		System.out.println("J A C K P O T !! " + pat.name + " found $" + moneyFound + "!!!");
+	    }
+		
 	}
 
 	else {
