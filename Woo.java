@@ -246,13 +246,6 @@ public class Woo{
 		System.out.println("Continue shopping? Type 'yes' or 'no'");
 
 		continueShopping = Keyboard.readString();
-
-		//if (continueShopping == "no") {
-		//for (int x = 0; x < inventory.size(); x++) {
-		//inventory.add(inventory.get(x));
-		//}
-		//}
-		//doesn't this just double the stuff in ur inventory? why would that be useful
 	    }
 	}
 	
@@ -319,12 +312,13 @@ public class Woo{
 				   "\t3: Check Location\n" +
 				   "\t4: Check Inventory\n" +
 				   "\t5: Check Stats\n" +
-				   "\t6: Use item");
+				   "\t6: Use item\n" + 
+				   "\t7: Hunt");
 		if ((currentLandmark.indexOf("Town")!=-1) || (currentLandmark.indexOf("City")!=-1)) {
-		    System.out.println("\t7: Visit the shop");
+		    System.out.println("\t8: Visit the shop");
 		}
 		if((currentLandmark.indexOf("River")!=-1)) {
-		    System.out.println("\t7: Cross the river!");
+		    System.out.println("\t8: Cross the river!");
 		}
 			
 		selection = Keyboard.readInt();
@@ -444,18 +438,24 @@ public class Woo{
 					
 		    }
 		}
+
+		if (selection == 7) {
+		    hunt();
+		}
+	
 		if ((currentLandmark.indexOf("Town")!=-1) || (currentLandmark.indexOf("City")!=-1)) {
-		    if (selection == 7) {
+		    if (selection == 8) {
 			shop();
 		    }
 		}
 		if ((currentLandmark.indexOf("River"))!=-1) {
-		    if (selection == 7) {
+		    if (selection == 8) {
 			crossRiver();
 		    }
 		}
 
 	    }
+	    
 			
 	    //stuff done at the end of every playTurn()
 	    //progression of days and months
@@ -610,6 +610,72 @@ public class Woo{
 	}
 
 	return weather; 
+    }
+
+    public void hunt() {
+	boolean isFinished = false; 
+	System.out.println("Welcome to hunting! Here's how the game will work:\n");
+	System.out.println("You're going to have 10 chances to guess a random number picked by the computer between 1-100 inclusive.");
+	System.out.println("If you get the number right with 5 or less guesses, then you will be rewarded with 7 food items.");
+	System.out.println("If you get the number right with 7 or less guesses, then you will be rewarded with 5 food items.");
+	System.out.println("If you get the number right with 8 or less guesses, then you will be rewarded with 3 food items.");
+	System.out.println("If you don't guess the number, you will not receive any food.");
+	System.out.println("Ready?");
+
+	int firstNumber = 1;        //First number index (range)
+	int lastNumber = 100;       //Last number index (range) 
+	int number = (int)(Math.random()*100);  //Randomly selected number from 1-100
+	int userNumber = -1;  //Number inputted by the user. Initial value is set to -1 in order to initiate the while loop 
+	int numTries = 0;  // The number of tries it takes for the user to guess the correct number 
+	
+	while (numTries < 10 && (!isFinished)) {
+	    System.out.println("Guess a number between " + firstNumber + "-" + lastNumber);
+	    userNumber = Keyboard.readInt();
+	    if (userNumber > number) {
+		lastNumber = userNumber - 1;
+		numTries += 1;
+		System.out.println("Too high, Try again...");
+	    }
+	    
+	    if (userNumber < number) {
+		firstNumber = userNumber + 1;
+		numTries += 1;
+		System.out.println("Too low, Try again...");
+	    }
+
+	    if (userNumber == number) {
+		int i = 0;
+		if (numTries <=5) {
+		    System.out.println("Congrats, you received 7 food items.");
+		    while (i < 7) {
+			addItem("food");
+			i++;
+		    }
+		}
+
+		if (numTries > 5 && numTries <= 7) {
+		    System.out.println("Congrats, you received 5 food items.");
+		    while (i < 5) {
+			addItem("food");
+			i++;
+		    }
+		}
+
+		if (numTries > 7 && numTries <= 8) {
+		    System.out.println("Congrats, you received 3 food items.");
+		    while (i < 3) {
+			addItem("food");
+			i++;
+		    }
+		}
+		isFinished = true; 
+	    }
+	}	    
+
+	if (numTries > 7) {
+	    System.out.println("Sorry, you received no food items. Try again next time!");
+	}
+	
     }
     //prints contents of inventory in the format
     //item1: quantity
