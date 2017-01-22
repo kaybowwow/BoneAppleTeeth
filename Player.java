@@ -19,7 +19,7 @@ public class Player extends Character{
     public String about() {
 	String retStr = "";
 	if (alive) {
-	    retStr += "\nPlayer 1: " + name
+	    retStr += "\nPlayer: " + name
 		+ "\nHealth: " + health
 		+ "\nMoney: " + money
 		+ "\nPace: " + Math.floor(pace * 100)/100;
