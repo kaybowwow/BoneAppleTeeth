@@ -147,6 +147,22 @@ Queenie ::
 Kevin ::
 Andrew ::
 
+2017-01-21
+--------------------------------------------------------------
+Queenie ::
+Kevin ::
+Andrew ::
+
+2017-01-22
+--------------------------------------------------------------
+Queenie ::
+1. Added new variable called temperature which will affect the weather, the pace, and the health of members 
+2. Did some editing on the formatting of the printed statements 
+3. Added code to allow the user to pick the month of when to start 
+Kevin ::
+Andrew ::
+
+
 
 ==============================================================
 
