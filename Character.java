@@ -2,15 +2,19 @@ import java.util.ArrayList;
 
 public class Character{
 
-    int health; //If no food: health decreases
+    protected int health; 
+	int maxhealth = 100;
+	boolean alive;
     //int lastOccupiedInvSlot = 0;
     String name;
 
     boolean hasDisease = false;
+    boolean onWagon = true;
     String disease; 
 
-    public Character(int setHealth) {
-	health = setHealth;
+    public Character() {
+	health = maxhealth;
+	alive = true;
     }
     public String getName() {
 	return name;
@@ -18,10 +22,20 @@ public class Character{
     public int getHealth() {
 	return health;
     }
-
-    public boolean isAlive() {
-	return (health > 0);
-    } 
+	public int setHealth(int a){
+		int woah = health;
+		health = a;
+		if (health > maxhealth){health = maxhealth;}
+		if (health < 0){alive = false;}
+		return woah;
+	}
+	public int addHealth(int a){
+		int woah = health;
+		health += a;
+		if (health>maxhealth){health = maxhealth;}
+		if (health < 0){alive = false;}
+		return woah; //this method is for convenience
+	}
 	
     /*    public void addToInv(String item){
 	inventory[lastOccupiedInvSlot] = item;
@@ -29,7 +43,7 @@ public class Character{
 	} */
     public String about() {
 	String retStr = "";
-	if (isAlive()) {
+	if (alive) {
 	    retStr += name + "'s Stats: " 
 		+ "\nHealth: " + health;
 	}

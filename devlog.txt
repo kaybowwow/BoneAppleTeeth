@@ -137,6 +137,9 @@ Andrew ::
 Queenie ::
 Kevin ::
 Andrew ::
+1. began working on weight mechanic (too much weight, move slow)
+2. began working on applying medicine/wood
+3. made it so that checking things doesn't pass days
 
 2017-01-20
 --------------------------------------------------------------
