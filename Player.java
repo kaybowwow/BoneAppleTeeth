@@ -22,7 +22,7 @@ public class Player extends Character{
 	    retStr += "\nPlayer 1: " + name
 		+ "\nHealth: " + health
 		+ "\nMoney: " + money
-		+ "\nPace: " + pace;
+		+ "\nPace: " + Math.floor(pace * 100)/100;
 	}
 	else {
 	    retStr += "yo boy, " + name + " is dead";

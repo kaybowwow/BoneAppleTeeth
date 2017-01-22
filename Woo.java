@@ -120,11 +120,12 @@ public class Woo{
 	fam[4] = child3;
 
 	
-	System.out.println("What month would you like to start in?");
+	System.out.println("\nWhat month would you like to start in?");
 	System.out.println("\t1: January\n" +
 			   "\t2: February\n" +
 			   "\t3: March\n" +
 			   "\t4: April\n");
+	System.out.print("Selection: ");
 	try {
 	    selection = Keyboard.readInt();
 
@@ -162,7 +163,7 @@ public class Woo{
 	System.out.println("\t1: Ford the river!\n" +
 			   "\t2: Caulk your wagon and float across the river\n" +
 			   "\t3: Pay the ferryman to sail you across");
-	System.out.print("\n Selection: ");
+	System.out.print("\nSelection: ");
 
 	selection = Keyboard.readInt();
 
@@ -232,7 +233,7 @@ public class Woo{
 			       "\t7: Heavy jacket : $15 each\n" +
 			       "\t8: Wood : $5 each\n"
 			       );
-	    System.out.println("\n Selection: ");
+	    System.out.print("Selection: ");
 
 	    //try {
 	    selection = Keyboard.readInt();
@@ -294,12 +295,12 @@ public class Woo{
 	    setTemperature(); 
 	    System.out.println(months[month] + " " + (days+1) + ", 1849");
 	    System.out.println("Current Weather: " + weather);
-	    System.out.println("Current Temperature (in Fahrenheit): " + temperature); 
+	    System.out.println("Current Temperature: " + Math.floor(temperature * 100)/100 + " degrees"); 
 	    System.out.println("Days traveled: " + days);
 	    System.out.println("Miles Traveled: " + milesTraveled);
 			
 	    //pace depends on the number of oxen in the inventory
-	    pat.pace = 1 + (.4 * countItem("oxen"));
+	    pat.pace = 1 + (.5 * countItem("oxen"));
 	    if (countItem("oxen") == 0){pat.addHealth(-5); spouse.addHealth(-5); child1.addHealth(-5); child2.addHealth(-5); child3.addHealth(-5);}
 	    //carrying stuff on ur own back is hard work
 	    //pace also depends on weight
@@ -334,8 +335,12 @@ public class Woo{
 	    boolean continuee = false;
 	    while (!continuee){    
 		System.out.println("\nWhat do you want to do?");
-		System.out.println("\t1: Continue\n" +
-				   "\t2: Rest\n" +
+		if ((currentLandmark.indexOf("River")!=-1)) {
+		    System.out.println("\t1: Cross the river!");}
+		else {
+		    System.out.println("\t1: Continue");}
+		
+		System.out.println("\t2: Rest\n" +
 				   "\t3: Check Location\n" +
 				   "\t4: Check Inventory\n" +
 				   "\t5: Check Stats\n" +
@@ -344,16 +349,17 @@ public class Woo{
 		if ((currentLandmark.indexOf("Town")!=-1) || (currentLandmark.indexOf("City")!=-1)) {
 		    System.out.println("\t8: Visit the shop");
 		}
-		if((currentLandmark.indexOf("River")!=-1)) {
-		    System.out.println("\t8: Cross the river!");
-		}
 			
 		selection = Keyboard.readInt();
 
-		//we will revolutionize the consumption of food products !!!
 		if (selection == 1) {
-		    continuee = true;
-		    Continue();
+		    if ((currentLandmark.indexOf("River"))!=-1) {
+			crossRiver();
+		    }
+		    else {
+			continuee = true;
+			Continue();
+		    }
 		}
 
 		if (selection == 2) {
@@ -473,11 +479,6 @@ public class Woo{
 		if ((currentLandmark.indexOf("Town")!=-1) || (currentLandmark.indexOf("City")!=-1)) {
 		    if (selection == 8) {
 			shop();
-		    }
-		}
-		if ((currentLandmark.indexOf("River"))!=-1) {
-		    if (selection == 8) {
-			crossRiver();
 		    }
 		}
 
@@ -658,13 +659,24 @@ public class Woo{
     }
 
     public void hunt() {
-	boolean isFinished = false; 
-	System.out.println("Welcome to hunting! Here's how the game will work:\n");
+	boolean isFinished = false;
+	int selection;
+
+	System.out.println("Welcome to hunting!\n\t1: Hunt!\n\t2: How to play?");
+	try {
+	    selection = Keyboard.readInt();
+	}
+	catch (Exception e) {
+	    selection = 2;
+	}
+	if (selection == 1) {}
+	if (selection == 2) {
 	System.out.println("You're going to have 10 chances to guess a random number picked by the computer between 1-100 inclusive.");
 	System.out.println("If you get the number right with 5 or less guesses, then you will be rewarded with 7 food items.");
 	System.out.println("If you get the number right with 7 or less guesses, then you will be rewarded with 5 food items.");
 	System.out.println("If you get the number right with 8 or less guesses, then you will be rewarded with 3 food items.");
 	System.out.println("If you don't guess the number, you will not receive any food.");
+	}
 	System.out.println("Ready?");
 
 	int firstNumber = 1;        //First number index (range)
