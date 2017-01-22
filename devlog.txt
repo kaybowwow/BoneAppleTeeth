@@ -125,6 +125,8 @@ Modified Woo.java
 4. Modified rest() to increase characters' health
 5. Added unfunctional landmarks
 Andrew ::
+1. created family array to compactify code
+2. finished weight, made pace depend on more things
 
 2017-01-21
 --------------------------------------------------------------
@@ -139,6 +141,10 @@ Modified Woo.java
 5. Modified "Continue" action in playTurn() so that the user stops at a checkpoint when the user reaches/passes the location of a checkpoint.
 
 Andrew ::
+1. forbade health going above its max or below 0 (cleaned up death)
+2. forbade inventory going above max (cleaned up addItem method)
+3. fixed shop so that you wouldn't waste money if buying more stuff than you can hold
+4. split off more helper functions from playTurn
 
 2017-01-22
 --------------------------------------------------------------
@@ -159,7 +165,9 @@ Modified Character and Player files
 1. Removed unnecessary methods
 
 Andrew ::
-
+1. fixed random event probabilities (its not always dysentery)
+2. added random events, like picking up stuff
+3. added some comments
 
 
 ==============================================================
