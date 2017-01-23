@@ -10,7 +10,7 @@ public class Character{
     String name;
 
     boolean hasDisease = false;
-    boolean onWagon = true;
+    //boolean onWagon = true;
     String disease; 
 
     public Character() {

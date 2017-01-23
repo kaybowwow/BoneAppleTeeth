@@ -116,7 +116,6 @@ Andrew ::
 
 2017-01-20
 --------------------------------------------------------------
-Queenie ::
 Kevin ::
 Modified Woo.java
 1. Implemented days and months system
@@ -130,8 +129,6 @@ Andrew ::
 
 2017-01-21
 --------------------------------------------------------------
-Queenie ::
-
 Kevin ::
 Modified Woo.java
 1. Implemented landmarks (cities, towns, rivers)
@@ -173,12 +170,6 @@ Andrew ::
 
 
 ==============================================================
-
-zone of reflection--
-Flesh out each category whenever necessary, appropriate.
- Need not be fully filled in until end of project,
- but best done as you go along.
-
 
 /////////// Zone of Reflection \\\\\\\\\\\
 ------------------------------------------

@@ -1,16 +1,15 @@
-# BoneAppleTeeth
+# **BoneAppleTeeth**
 
-##marked up 111
+**_Welcome to the Oregon Trail!_**
 
-**_welcome to oregon trail files_**
+After hearing about gold in Oregon in 1849, you and your family embark on your journey on the Oregon Trail. Make decisions to avoid death as you and your family travel from your quaint town to the land of riches, Oregon.
 
-Our project is a simulation of a family's journey along the Oregon Trail. Your family has heard about the riches to be made in Oregon in the 1849's. You start with a certain profession and set out with your family on the Oregon Trail with certain items. During the journey on the trail, many unfortunate happenstances can befall your family. There will be towns along the route which can be places to buy supplies and rest. The goal of the game is to safely make it to Oregon with every member of the family and with as much money as possible. *May the odds be ever in your favor!*
+##**To Launch the Game** . . . 
 
-
-
-To launch the game ...
+Follow these steps in the terminal:
 <ol>
-<li> Make sure to be in the BoneAppleTeeth directory in your terminal.</li>
-<li> Type "javac Woo.java" into your terminal to compile Woo.java.</li>
-<li> Type "java Woo" into your terminal.</li>
+<li>Clone this repository with "git clone git@github.com:kaybowwow/BoneAppleTeeth.git"</li>
+<li>Change into the directory with "cd BoneAppleTeeth"</li>
+<li>Compile Woo.java with "javac Woo.java"</li>
+<li>Run Woo.java with "java Woo"</li>
 </ol>
