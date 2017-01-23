@@ -28,7 +28,7 @@ public class Woo{
     private int days = 0;
     private int month;    
     private String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
-    private Object[][] landmarks = { {"Apple Town",0},{"Bone Town",65},{"Mykolyk River",115},{"Ursula City",175},{"Yekateri River",250},{"Oregon City",500} };
+    private Object[][] landmarks = { {"Apple Town",0},{"Bone Town",70},{"Mykolyk River",110},{"Ursula City",180},{"Yekateri River",350},{"Oregon City",500} };
     private String currentLandmark = (String)landmarks[1][0];
     private String nextCheckpoint = (String)landmarks[1][0];
     private int nextCheckpointMiles = (int)landmarks[1][1];    
@@ -358,10 +358,10 @@ public class Woo{
 
 		//these can be performed at any time
 		System.out.println("\t2: Rest\n" +
-				   "\t3: Check Location\n" +
+				   "\t3: Check Map\n" +
 				   "\t4: Check Inventory\n" +
 				   "\t5: Check Stats\n" +
-				   "\t6: Use item\n" + 
+				   "\t6: Use Item\n" + 
 				   "\t7: Hunt");
 		//player can only visit the shop when in a town or a city
 		if ((currentLandmark.indexOf("Town")!=-1) || (currentLandmark.indexOf("City")!=-1)) {
@@ -388,9 +388,30 @@ public class Woo{
 		    rest();
 		}
 
-		//prints how far you are from the next landmark
+		//shows map and distance to next landmark
 		if (selection == 3) {
-		    System.out.println("You are " + (nextCheckpointMiles - milesTraveled) + " miles from " + nextCheckpoint + "."); 
+		    System.out.println("You are " + (nextCheckpointMiles - milesTraveled) + " miles from " + nextCheckpoint + ".");
+			String[] p = new String[51];
+			int position = milesTraveled / 10;
+			for (int i = 0; i < 51; i++){
+				p[i] = "-";
+			}
+			p[0] = "o"; p[7] = "o";
+			p[18] = "O"; p[50] = "O";
+			p[11] = "r"; p[35] = "r";
+			p[position] = "X";
+			String map ="    ..~^^.............~~~~~.............\n" + 
+						"     .~.^^^.........~~~...~~.........."+p[0]+".\n" + 
+					    "     ...^^....^^...~~......~~~........"+p[1]+".\n" +
+						"    ~~~.^......~^^...........~~....."+p[4]+""+p[3]+""+p[2]+".\n" +
+						"    ."+p[50]+""+p[48]+""+p[47]+""+p[46]+""+p[45]+"^^...~^^^^^^^..."+p[16]+""+p[15]+""+p[14]+".~~ "+p[8]+""+p[7]+""+p[6]+""+p[5]+"...\n" +
+						"   ......"+p[44]+"^^^"+p[36]+""+p[35]+""+p[34]+""+p[33]+".^"+p[28]+""+p[27]+""+p[26]+"^.^."+p[17]+"."+p[13]+""+p[12]+""+p[11]+""+p[10]+""+p[9]+"......\n" +
+						"   ...^.."+p[43]+""+p[42]+"^"+p[38]+""+p[37]+"~~"+p[32]+""+p[31]+""+p[30]+""+p[29]+"^"+p[25]+""+p[24]+""+p[23]+"^."+p[18]+"....~~.......\n" +
+						"   ....^.."+p[41]+""+p[40]+""+p[39]+".~....^^.."+p[22]+""+p[21]+""+p[20]+""+p[19]+".....~~~.....\n" + 
+						"   ....^^...~~~.....^^^^................\n" +
+						"    ....^^^~~........^^^^^^.............\n";
+			System.out.println("x:location   -:path   o:town   O:city   ^:mountain   ~:river   r:river crossing");
+			System.out.println(map);
 		}
 
 		//displays your inventory 
