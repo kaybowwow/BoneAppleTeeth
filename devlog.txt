@@ -42,7 +42,7 @@ Researched on certain functionalities that will be included in the game
 Queenie ::
 Modified the Woo file and Player and its subclasses
 Modifications include:
-1. Implementing an initial inventory where each subclass of Player recieves a different starting item depending on their occupation.
+1. Implementing an initial inventory where each subclass of Player receives a different starting item depending on their occupation.
 2. Creating and implementing a Shop mechanism at the start of the game.
 3. Implementing the cs1 package's Keyboard class to accept user input like name.
 
@@ -123,9 +123,9 @@ Modified Woo.java
 2. Added a way to print a death message upon the death of a family member.
 3. Modified shop() algorithm to make it more universal
 4. Modified rest() to increase characters' health
-5. Added unfunctional landmarks
+5. Added not functional landmarks
 Andrew ::
-1. created family array to compactify code
+1. created family array to robustify  code
 2. finished weight, made pace depend on more things
 
 2017-01-21
@@ -152,12 +152,14 @@ Queenie ::
 1. Added new variable called temperature which will affect the weather, the pace, and the health of members 
 2. Did some editing on the formatting of the printed statements 
 3. Added code to allow the user to pick the month of when to start
+4. Modified the distance for the different check points
+5. Modified the catch blocks to print the appropriate statements and assume the correct default value
 
 Kevin ::
 Modified Woo.java
 1. Modified playTurn() so that the user can only "Cross the River!" at a river and "Visit the shop" at a Town or a City.
 2. Implemented method printSlowly() to print a String one character at a time. 
-3. Made some design changes in the UI. (used printSlowly() alot)
+3. Made some design changes in the UI. (used printSlowly() a lot)
 4. Added the possibility to find random amounts of money.
 5. Added an introduction to the game to introduce the atmosphere. (used printSlowly)
 6. Added comments for some of the methods in Woo.java.
@@ -182,13 +184,15 @@ Flesh out each category whenever necessary, appropriate.
 ------------------------------------------
 OBSTACLES OVERCOME
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. We were very confused as to how to implement an array of Characters containing all of the Characters. Once we figured this out, it saved us a lot of time. 
+1. We were very confused as to how to implement an array of Characters containing all of the Characters. Once we figured this out, it saved us a lot of time and robustified our code immensely. 
 
 2. In the past, the Characters would still be alive with 0 Health, but now they die when they're at 0 Health.
 
+3. We originally had a huge shop method with so many if statements and large blocks of code and the different attributes of different items but we were able to nicely organize and compact the way that the shop worked with the 2D arrays. 
+
 UNRESOLVED ISSUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. We didn't implement an ammunition system because with the current inventory system, ammunition will fill up the inventory pretty quickly, and not provide room to have other items in the inventory. We would have to re-write the current inventory system to accomodate for ammunition.
+1. We didn't implement an ammunition system because with the current inventory system, ammunition will fill up the inventory pretty quickly, and not provide room to have other items in the inventory. We would have to re-write the current inventory system to accommodate for ammunition.
 
 COOL STUFF LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -200,7 +204,7 @@ COOL STUFF LEARNED
 
 MID-DEVELOPMENT DESIGN CHANGES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. We decided to implement an array of Character that contains the Player and all the Members of the family because this allowed us to use a for-loop when we needed to perform something on every Character. This saved us alot of time and space.
+1. We decided to implement an array of Character that contains the Player and all the Members of the family because this allowed us to use a for-loop when we needed to perform something on every Character. This saved us a lot of time and space.
 
 2. We decided to implement a 2-d array called items that contained the properties of each item (price , weight) the user can buy from the shop because it was important to keep the attributes of the items in one place.
 
@@ -212,6 +216,11 @@ LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. It's always better to print something when testing a certain method/functionality. If done in a loop, we can see how many times the method loops/or if it's looping correctly.
+
+2. Always think simpler. 
+
+3. If something is extremely repetitive, chances are there’s a simpler and more robust way to implement it. 
+
 
 
  ______   ______   __   __   __       ______   _______     
